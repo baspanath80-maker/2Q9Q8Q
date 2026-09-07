@@ -3,30 +3,24 @@
   "short_name": "Mental Check",
   "description": "แบบประเมินและคัดกรองสุขภาพจิต โรงพยาบาลดอนจาน",
   "lang": "th",
-  "start_url": "./",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f0f3f7",
+  "background_color": "#ffffff",
   "theme_color": "#6c5ce7",
   "icons": [
     {
       "src": "./1920.png",
-      "sizes": "1920x1920",
+      "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "./1800.png",
-      "sizes": "1800x1800",
-      "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
       "src": "./512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     }
   ]
 }
