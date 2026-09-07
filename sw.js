@@ -1,0 +1,50 @@
+const CACHE_NAME = "mental-health-smart-v1";
+
+// รายการไฟล์ที่ต้องการ Cache ไว้สำหรับ Offline (รวมไฟล์ภาพตามที่ระบุ)
+const FILES = [
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./1920.png",
+  "./1800.png",
+  "./512.png"
+];
+
+// ติดตั้ง Service Worker และ Caching ไฟล์ทันที
+self.addEventListener("install", event => {
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(FILES))
+  );
+});
+
+// ล้าง Cache เวอร์ชันเก่าเมื่อมีการอัปเดต
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      )
+    ).then(() => self.clients.claim())
+  );
+});
+
+// ดึงข้อมูลจาก Network ก่อน หากไม่มีอินเทอร์เน็ตจึงดึงจาก Cache
+self.addEventListener("fetch", event => {
+  event.respondWith(
+    fetch(event.request)
+      .then(networkResponse => {
+        if (networkResponse && networkResponse.status === 200) {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
+        }
+        return networkResponse;
+      })
+      .catch(() => caches.match(event.request))
+  );
+});
+
