@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">  
     <title>Mental Health Smart Check - รพ.ดอนจาน</title>  
     
-    <!-- PWA Setup & Icons -->
+    <!-- PWA Setup & Manifest -->
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#6c5ce7">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="icon" type="image/png" sizes="1920x1920" href="./1920.png">
+    <meta name="apple-mobile-web-app-title" content="Mental Check">
+
+    <!-- Favicon & App Touch Icons (แก้ไขเพื่อให้แสดงโลโก้ตรงป๊อปอัปติดตั้ง) -->
+    <link rel="icon" type="image/png" sizes="192x192" href="./1920.png">
     <link rel="icon" type="image/png" sizes="512x512" href="./512.png">
     <link rel="apple-touch-icon" sizes="1800x1800" href="./1800.png">
+    <link rel="shortcut icon" href="./512.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
@@ -321,7 +325,7 @@
                 if(scores.st5 >= 8) {
                     advice = "ระดับความเครียดค่อนข้างสูง ซึ่งอาจส่งผลกระทบต่อการนอนหลับ สมาธิ และสุขภาพกายในระยะยาว (เช่น ความดันโลหิต หรืออาการปวดตึงกล้ามเนื้อ) ควรจัดสรรเวลาพักผ่อน ฝึกการผ่อนคลายกล้ามเนื้อ หรือปรึกษาเจ้าหน้าที่สาธารณสุขครับ";
                 } else {
-                    advice = "ระดับความเครียดอยู่ในเกณฑ์ที่สามารถบริหารจัดการได้ตามปกติ แนะนำให้ทำกิจกรรมผ่อนคลายที่ชื่นชอบ ออกกำลังกายเบาๆ และหลีกเลี่ยงปัจจัยกระตุ้นความกังจลครับ";
+                    advice = "ระดับความเครียดอยู่ในเกณฑ์ที่สามารถบริหารจัดการได้ตามปกติ แนะนำให้ทำกิจกรรมผ่อนคลายที่ชื่นชอบ ออกกำลังกายเบาๆ และหลีกเลี่ยงปัจจัยกระตุ้นความกังวลครับ";
                 }
             }
         }  
@@ -486,4 +490,3 @@
 </script>  
 </body>  
 </html>
-
