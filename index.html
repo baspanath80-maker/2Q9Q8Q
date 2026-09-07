@@ -5,98 +5,150 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">  
     <title>Mental Health Smart Check - รพ.ดอนจาน</title>  
     
-    <!-- PWA Setup & Manifest -->
-    <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#6c5ce7">
+    <meta name="background-color" content="#f0f3f7">
+    <meta name="description" content="Mental Health Smart Check ระบบคัดกรองสุขภาพจิต 2Q 9Q 8Q ST-5 โรงพยาบาลดอนจาน">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Mental Check">
 
-    <!-- Favicon & App Touch Icons (แก้ไขเพื่อให้แสดงโลโก้ตรงป๊อปอัปติดตั้ง) -->
+    <!-- PWA MANIFEST -->
+    <link rel="manifest" href="./manifest.json">
+
+    <!-- ICONS (ใช้ 1920.png, 1800.png, 512.png ตามที่กำหนด) -->
     <link rel="icon" type="image/png" sizes="192x192" href="./1920.png">
     <link rel="icon" type="image/png" sizes="512x512" href="./512.png">
-    <link rel="apple-touch-icon" sizes="1800x1800" href="./1800.png">
-    <link rel="shortcut icon" href="./512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./1800.png">
+    <link rel="shortcut icon" href="./1920.png">
 
+    <!-- FONT & FONT AWESOME -->
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
+
 <style>  
     :root {   
-        --primary: #6c5ce7; --secondary: #a29bfe; --success: #00b894;   
-        --warning: #fdcb6e; --orange: #e17055; --danger: #d63031; --bg: #f0f3f7;   
+        --primary: #6c5ce7; 
+        --primary-dark: #5b4bc4;
+        --secondary: #a29bfe; 
+        --success: #00b894;   
+        --warning: #fdcb6e; 
+        --orange: #e17055; 
+        --danger: #d63031; 
+        --bg: #f0f3f7;   
     }  
       
+    * { box-sizing: border-box; }
     body { 
-        font-family: 'Sarabun', 'TH Sarabun New', 'TH Sarabun PS', 'Cordia New', 'Angsana New', sans-serif; 
+        font-family: 'Sarabun', sans-serif; 
         background-color: var(--bg); 
         color: #2d3436; 
         margin: 0; 
-        padding: 15px; 
+        padding: 30px 15px; 
         overflow-x: hidden; 
+        line-height: 1.6;
     }  
-    .container { max-width: 700px; margin: auto; background: #ffffff; padding: 25px; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); position: relative; }  
-      
-    .header { text-align: center; margin-bottom: 25px; }  
-    .hospital-logo { font-size: 60px; color: var(--primary); }  
+    button, input, select { font-family: 'Sarabun', sans-serif; }
 
-    /* PWA INSTALL UI */
+    .container { 
+        max-width: 750px; 
+        margin: auto; 
+        background: #ffffff; 
+        padding: 35px; 
+        border-radius: 24px; 
+        box-shadow: 0 15px 35px rgba(108, 92, 231, 0.08); 
+        position: relative; 
+    }  
+      
+    /* HEADER */
+    .header { text-align: center; margin-bottom: 30px; }  
+    .hospital-logo-box {
+        width: 90px;
+        height: 90px;
+        margin: 0 auto 15px;
+        border-radius: 50%;
+        background: #f1f0fe;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .hospital-logo-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    .hospital-logo-icon { font-size: 45px; color: var(--primary); }  
+    .header h1 { color: var(--primary); margin: 10px 0 5px; font-size: 26px; font-weight: 700; }
+    .header p { color: #636e72; margin: 0; font-size: 15px; }
+
+    /* INSTALL APP CARD */
     .install-app-box {
         background: #ffffff;
         border: 1px solid #e2e8f0;
         border-radius: 20px;
-        padding: 18px 20px;
+        padding: 20px;
         margin-bottom: 25px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.03);
     }
     .pwa-header-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .pwa-text-info h3 { margin: 0; color: var(--primary); font-size: 17px; font-weight: 700; }
-    .pwa-text-info p { margin: 3px 0 0; font-size: 13px; color: #64748b; }
+    .pwa-title-group { display: flex; align-items: center; gap: 12px; }
+    .pwa-text-info h3 { margin: 0; color: var(--primary); font-size: 18px; font-weight: 700; }
+    .pwa-text-info p { margin: 2px 0 0; font-size: 14px; color: #64748b; }
     .btn-group-pwa { display: flex; gap: 8px; align-items: center; }
     .btn-install-direct {
         background: var(--primary); color: white; border: none; border-radius: 12px;
-        padding: 10px 18px; font-size: 15px; font-weight: 600; cursor: pointer;
+        padding: 11px 20px; font-size: 16px; font-weight: 600; cursor: pointer;
         display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 3px 8px rgba(108, 92, 231, 0.3);
+        white-space: nowrap;
     }
+    .btn-install-direct:hover { background: var(--primary-dark); }
     .btn-how-to {
         background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; border-radius: 12px;
-        padding: 10px 14px; font-size: 14px; font-weight: 600; cursor: pointer;
+        padding: 11px 16px; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap;
     }
+    .btn-how-to:hover { background: #e2e8f0; }
 
     /* SHORTCUT MODAL */
     .shortcut-modal { position: fixed; inset: 0; z-index: 100000; }
     .shortcut-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.65); }
     .shortcut-card {
         position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
-        width: calc(100% - 30px); max-width: 480px; max-height: 90vh; overflow-y: auto;
-        background: white; border-radius: 25px; padding: 28px 22px 22px; text-align: center;
+        width: calc(100% - 30px); max-width: 500px; max-height: 90vh; overflow-y: auto;
+        background: white; border-radius: 25px; padding: 32px 25px 25px; text-align: center;
+        box-shadow: 0 15px 50px rgba(0,0,0,0.25);
     }
-    .shortcut-close { position: absolute; right: 15px; top: 12px; border: none; background: transparent; font-size: 22px; color: #777; cursor: pointer; }
-    .shortcut-steps { text-align: left; margin-top: 15px; }
-    .shortcut-steps div { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 15px; }
+    .shortcut-close { position: absolute; right: 15px; top: 12px; border: none; background: transparent; font-size: 23px; color: #777; cursor: pointer; width: 40px; height: 40px; }
+    .shortcut-card h2 { color: var(--primary); font-size: 23px; margin: 10px 0; }
+    .shortcut-card > p { color: #555; font-size: 16px; margin: 0 0 10px; }
+    .shortcut-steps { text-align: left; margin-top: 20px; }
+    .shortcut-steps div { display: flex; align-items: flex-start; gap: 12px; padding: 13px 5px; border-bottom: 1px solid #eee; font-size: 16px; }
     .shortcut-steps span {
-        width: 28px; height: 28px; min-width: 28px; border-radius: 50%; background: var(--primary);
+        width: 32px; height: 32px; min-width: 32px; border-radius: 50%; background: var(--primary);
         color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;
     }
-    .shortcut-ok { width: 100%; margin-top: 18px; padding: 12px; border: none; border-radius: 12px; background: var(--primary); color: white; font-size: 16px; font-weight: 600; cursor: pointer; }
+    .shortcut-steps p { margin: 2px 0 0; }
+    .shortcut-ok { width: 100%; margin-top: 22px; padding: 13px; border: none; border-radius: 12px; background: var(--primary); color: white; font-size: 17px; font-weight: 600; cursor: pointer; }
       
+    /* FORM & QUESTION UI */
     .info-section { background: linear-gradient(135deg, #f1f4ff, #e8edff); padding: 20px; border-radius: 20px; margin-bottom: 25px; border: 2px dashed var(--secondary); }  
     label { font-weight: 700; color: var(--primary); display: block; margin-bottom: 8px; }  
-    input { width: 100%; padding: 12px; border: 2px solid #dfe6e9; border-radius: 15px; font-family: inherit; font-size: 16px; box-sizing: border-box; }  
+    input[type="text"] { width: 100%; padding: 12px 16px; border: 2px solid #dfe6e9; border-radius: 15px; font-size: 16px; }  
+    input[type="text"]:focus { border-color: var(--primary); outline: none; }
 
     .form-section { display: none; }  
-    .active { display: block; animation: slideIn 0.5s ease-out; }  
-    @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }  
+    .active { display: block; animation: slideIn 0.4s ease-out; }  
+    @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }  
 
-    .question-card { background: #fff; border: 1px solid #f1f2f6; padding: 20px; margin-bottom: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }  
-    .question-card p { font-weight: 600; font-size: 1.1rem; color: #4834d4; margin-top: 0; }  
+    .question-card { background: #fff; border: 1px solid #edf2f7; padding: 20px; margin-bottom: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }  
+    .question-card p { font-weight: 600; font-size: 1.05rem; color: #333; margin-top: 0; }  
 
-    .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-top: 15px; }  
+    .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-top: 15px; }  
     .option-item input { display: none; }  
     .option-item label {   
         display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;  
-        padding: 12px; text-align: center; background: #f8f9fa; border: 2px solid #eee; border-radius: 15px;   
-        cursor: pointer; transition: 0.2s; font-weight: 600;  
+        padding: 12px 8px; text-align: center; background: #f8f9fa; border: 2px solid #eee; border-radius: 15px;   
+        cursor: pointer; transition: 0.2s; font-weight: 600; margin: 0; font-size: 14px;
     }  
 
     .opt-green input:checked + label { background: var(--success) !important; color: white; border-color: var(--success); }  
@@ -104,31 +156,36 @@
     .opt-orange input:checked + label { background: var(--orange) !important; color: white; border-color: var(--orange); }  
     .opt-red input:checked + label { background: var(--danger) !important; color: white; border-color: var(--danger); }  
 
-    .result-box { display: none; text-align: center; animation: zoomIn 0.5s; }  
-    @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }  
+    .result-box { display: none; text-align: center; animation: zoomIn 0.4s; }  
+    @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }  
       
     table { width: 100%; border-collapse: collapse; margin: 20px 0; border-radius: 15px; overflow: hidden; }  
     th { background: var(--primary); color: white; padding: 15px; text-align: left; }  
     td { padding: 15px; border-bottom: 1px solid #f1f1f1; text-align: left; background: #fff; }  
 
     .btn-group { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }  
-    button { width: 100%; padding: 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: 700; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 17px; }  
-    .btn-next { background: var(--primary); color: white; box-shadow: 0 8px 20px rgba(108, 92, 231, 0.3); }  
+    button.btn-next, button.btn-pdf { width: 100%; padding: 16px; border-radius: 18px; border: none; cursor: pointer; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; }  
+    .btn-next { background: var(--primary); color: white; box-shadow: 0 8px 20px rgba(108, 92, 231, 0.25); }  
     .btn-pdf { background: #2d3436; color: white; }  
 
     #print-area { display: none; } 
 
+    @media(max-width:768px) {
+        body { padding: 12px 8px; }
+        .container { padding: 22px 16px; border-radius: 20px; }
+        .pwa-header-row { flex-direction: column; align-items: flex-start; gap: 15px; }
+        .pwa-title-group { align-items: flex-start; }
+        .pwa-text-info h3 { font-size: 16px; }
+        .pwa-text-info p { font-size: 13px; }
+        .btn-group-pwa { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
+        .btn-install-direct, .btn-how-to { flex: 1; padding: 10px 12px; font-size: 14px; text-align: center; justify-content: center; }
+        .options { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media print {  
-        html, body { background: #ffffff !important; padding: 0 !important; margin: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }  
+        html, body { background: #ffffff !important; padding: 0 !important; margin: 0 !important; }  
         .container, #setup-ui, .btn-group, .header, .install-app-box { display: none !important; } 
-        #print-area { 
-            display: block !important; 
-            width: 170mm; 
-            max-width: 100%;
-            margin: 0 auto; 
-            box-sizing: border-box;
-            page-break-inside: avoid; 
-        }  
+        #print-area { display: block !important; width: 170mm; margin: 0 auto; box-sizing: border-box; }  
         @page { size: A4; margin: 15mm 10mm; }  
     }  
 </style>
@@ -141,8 +198,8 @@
       <div class="pwa-header-row">
         <div class="pwa-title-group">
           <div class="pwa-text-info">
-            <h3>บันทึกลงหน้าจอมือถือ</h3>
-            <p>ใช้งานสะดวก รวดเร็ว และรองรับระบบ Offline</p>
+            <h3>เพิ่ม Mental Health Smart Check ลงหน้าจอ</h3>
+            <p>เปิดใช้งานได้สะดวก รวดเร็ว และรองรับแบบ Offline</p>
           </div>
         </div>
         <div class="btn-group-pwa">
@@ -163,8 +220,8 @@
         <button type="button" class="shortcut-close" id="closeShortcutModal" aria-label="ปิด">
           <i class="fa-solid fa-xmark"></i>
         </button>
-        <h2 style="color: var(--primary); font-size: 20px; margin: 5px 0 10px;">วิธีติดตั้งเข้าหน้าจอมือถือ</h2>
-        <p style="color: #555; font-size: 14px; margin: 0;">ติดตั้งเพื่อใช้งานเสมือนแอปพลิเคชัน</p>
+        <h2>วิธีติดตั้งเข้าหน้าจอมือถือ</h2>
+        <p>ติดตั้งเพื่อใช้งานเสมือนแอปพลิเคชัน</p>
         <div class="shortcut-steps">
           <div><span>1</span><p>เปิดเว็บไซต์ด้วย <strong>Safari (iOS)</strong> หรือ <strong>Chrome (Android)</strong></p></div>
           <div><span>2</span><p>กดปุ่ม <strong>แชร์ <i class="fa-solid fa-share-nodes"></i></strong> หรือ <strong>จุด 3 จุด <i class="fa-solid fa-ellipsis-vertical"></i></strong></p></div>
@@ -177,10 +234,15 @@
 
     <div id="setup-ui">  
         <div class="header">  
-            <i class="fas fa-heartbeat hospital-logo"></i>  
-            <h1 style="color:var(--primary); margin:10px 0; font-size: 24px;">Mental Health Smart Check</h1>  
-            <p style="color: #636e72;">โรงพยาบาลดอนจาน จ.กาฬสินธุ์</p>  
+            <div class="hospital-logo-box">
+                <!-- โหลดโลโก้ 1920.png ถ้ามีไฟล์ภาพ หรือแสดงไอคอนหากไม่พบรูปภาพ -->
+                <img src="./1920.png" alt="Logo" class="hospital-logo-img" onerror="this.style.display='none'; document.getElementById('fallback-icon').style.display='block';">
+                <i class="fas fa-heartbeat hospital-logo-icon" id="fallback-icon" style="display:none;"></i>
+            </div>
+            <h1>Mental Health Smart Check</h1>  
+            <p>โรงพยาบาลดอนจาน จ.กาฬสินธุ์</p>  
         </div>  
+
         <div class="info-section">  
             <label><i class="fas fa-user-edit"></i> ชื่อ-นามสกุล ผู้รับบริการ</label>  
             <input type="text" id="client-name" placeholder="ระบุชื่อเพื่อบันทึกในรายงาน...">  
@@ -213,7 +275,7 @@
 
     <div id="section-result" class="result-box">  
         <i class="fas fa-poll-h" style="font-size: 60px; color: var(--primary); margin-bottom: 15px;"></i>  
-        <h2 style="margin:0;">สรุปผลการประเมิน</h2>  
+        <h2 style="margin:0; font-size:22px;">สรุปผลการประเมิน</h2>  
         <div id="report-details"></div>  
         <div style="margin-top:20px; padding:20px; background:#fff4f4; border-radius:20px; border-left:8px solid var(--danger); text-align: left;">  
             <b style="color:var(--danger); font-size:1.1rem;"><i class="fas fa-lightbulb"></i> คำแนะนำผู้เชี่ยวชาญ:</b>   
@@ -221,7 +283,7 @@
         </div>  
         <div class="btn-group">  
             <button class="btn-pdf" onclick="generateMentalHealthPDF()"><i class="fas fa-file-pdf"></i> บันทึก PDF (รองรับมือถือ)</button>  
-            <button style="background:#dfe6e9; color:#2d3436;" onclick="location.reload()">เริ่มประเมินใหม่</button>  
+            <button style="background:#dfe6e9; color:#2d3436; padding:16px; border-radius:18px; border:none; cursor:pointer; font-weight:700;" onclick="location.reload()">เริ่มประเมินใหม่</button>  
         </div>  
     </div>
 </div>  
@@ -303,7 +365,7 @@
         tableHtml += `<tr><td style="padding:10px;">1. การคัดกรองเบื้องต้น (2Q)</td><td align="center">${scores.q2}</td><td style="padding:10px; font-weight:700; color:${getStatusColor(res2Q)}">${res2Q}</td></tr>`;  
           
         let advice = manualMsg || "";  
-  
+
         if(scores.q9 !== -1) {  
             let lv9 = scores.q9 < 7 ? "ปกติ" : scores.q9 <= 12 ? "มีอาการซึมเศร้าระดับน้อย" : scores.q9 <= 18 ? "มีอาการซึมเศร้าระดับปานกลาง" : "มีอาการซึมเศร้าระดับรุนแรง";  
             tableHtml += `<tr><td style="padding:10px;">2. ระดับภาวะซึมเศร้า (9Q)</td><td align="center">${scores.q9}</td><td style="padding:10px; font-weight:700; color:${getStatusColor(lv9)}">${lv9}</td></tr>`;  
@@ -323,9 +385,9 @@
             
             if(!advice) {
                 if(scores.st5 >= 8) {
-                    advice = "ระดับความเครียดค่อนข้างสูง ซึ่งอาจส่งผลกระทบต่อการนอนหลับ สมาธิ และสุขภาพกายในระยะยาว (เช่น ความดันโลหิต หรืออาการปวดตึงกล้ามเนื้อ) ควรจัดสรรเวลาพักผ่อน ฝึกการผ่อนคลายกล้ามเนื้อ หรือปรึกษาเจ้าหน้าที่สาธารณสุขครับ";
+                    advice = "ระดับความเครียดค่อนข้างสูง ซึ่งอาจส่งผลกระทบต่อการนอนหลับ สมาธิ และสุขภาพกายในระยะยาว แนะนำจัดสรรเวลาพักผ่อน ฝึกการผ่อนคลายกล้ามเนื้อ หรือปรึกษาเจ้าหน้าที่สาธารณสุขครับ";
                 } else {
-                    advice = "ระดับความเครียดอยู่ในเกณฑ์ที่สามารถบริหารจัดการได้ตามปกติ แนะนำให้ทำกิจกรรมผ่อนคลายที่ชื่นชอบ ออกกำลังกายเบาๆ และหลีกเลี่ยงปัจจัยกระตุ้นความกังวลครับ";
+                    advice = "ระดับความเครียดอยู่ในเกณฑ์ที่สามารถบริหารจัดการได้ตามปกติ แนะนำให้ทำกิจกรรมผ่อนคลายที่ชื่นชอบ และหลีกเลี่ยงปัจจัยกระตุ้นความกังวลครับ";
                 }
             }
         }  
@@ -425,7 +487,7 @@
         }
     }
 
-    /* PWA INSTALL & SERVICE WORKER LOGIC */
+    /* PWA INSTALL & SERVICE WORKER HANDLERS */
     let deferredPrompt = null;
     const installBox = document.getElementById("installBox");
     const directInstallBtn = document.getElementById("directInstallBtn");
@@ -438,18 +500,18 @@
       return (window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true);
     }
 
-    // ลงทะเบียน Service Worker
+    // 1. ลงทะเบียน Service Worker[span_1](start_span)[span_1](end_span)
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("./sw.js").then(registration => {
-          console.log("Service Worker Registered:", registration.scope);
+          console.log("Service Worker Registered Successfully:", registration.scope);
         }).catch(error => {
           console.error("Service Worker Registration Failed:", error);
         });
       });
     }
 
-    // ดักจับ Event สำหรับการกดติดตั้ง PWA โดยตรง
+    // 2. จับ Event beforeinstallprompt เพื่อเปิดปุ่ม "ติดตั้งแอป" ทันทีถ้าเบราว์เซอร์รองรับ[span_2](start_span)[span_2](end_span)
     window.addEventListener("beforeinstallprompt", event => {
       event.preventDefault();
       deferredPrompt = event;
@@ -458,17 +520,19 @@
       }
     });
 
+    // กดปุ่มติดตั้งโดยตรง[span_3](start_span)[span_3](end_span)
     if (directInstallBtn) {
       directInstallBtn.addEventListener("click", async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to install prompt: ${outcome}`);
         deferredPrompt = null;
         directInstallBtn.style.display = "none";
       });
     }
 
-    // แสดง Modal วิธีการติดตั้ง
+    // กดปุ่มคู่มือวิธีติดตั้ง[span_4](start_span)[span_4](end_span)
     howInstallButton.addEventListener("click", () => {
       shortcutModal.style.display = "block";
       document.body.style.overflow = "hidden";
@@ -483,10 +547,24 @@
     shortcutOk.addEventListener("click", closeShortcut);
     document.querySelector(".shortcut-overlay").addEventListener("click", closeShortcut);
 
-    // ซ่อน Banner ติดตั้ง เมื่อเปิดผ่าน App/Standalone อยู่แล้ว
+    document.addEventListener("keydown", event => {
+      if(event.key === "Escape" && shortcutModal.style.display === "block"){
+        closeShortcut();
+      }
+    });
+
+    // เมื่อแอปติดตั้งเรียบร้อยแล้ว[span_5](start_span)[span_5](end_span)
+    window.addEventListener("appinstalled", () => {
+      deferredPrompt = null;
+      shortcutModal.style.display = "none";
+      installBox.style.display = "none";
+    });
+
+    // ซ่อนกล่องแจ้งเตือนติดตั้งหากเปิดใช้งานแบบ App (Standalone) อยู่แล้ว[span_6](start_span)[span_6](end_span)
     if(isStandalone()){
       installBox.style.display = "none";
     }
 </script>  
 </body>  
 </html>
+
