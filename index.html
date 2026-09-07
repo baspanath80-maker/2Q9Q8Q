@@ -13,10 +13,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Mental Check">
 
-    <!-- PWA MANIFEST -->
+    <!-- PWA MANIFEST & ICONS -->
     <link rel="manifest" href="./manifest.json">
-
-    <!-- ICONS (ใช้ 1920.png, 1800.png, 512.png ตามที่กำหนด) -->
     <link rel="icon" type="image/png" sizes="192x192" href="./1920.png">
     <link rel="icon" type="image/png" sizes="512x512" href="./512.png">
     <link rel="apple-touch-icon" sizes="180x180" href="./1800.png">
@@ -71,12 +69,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        overflow: hidden;
     }
     .hospital-logo-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 50%;
     }
     .hospital-logo-icon { font-size: 45px; color: var(--primary); }  
     .header h1 { color: var(--primary); margin: 10px 0 5px; font-size: 26px; font-weight: 700; }
@@ -225,8 +223,8 @@
         <div class="shortcut-steps">
           <div><span>1</span><p>เปิดเว็บไซต์ด้วย <strong>Safari (iOS)</strong> หรือ <strong>Chrome (Android)</strong></p></div>
           <div><span>2</span><p>กดปุ่ม <strong>แชร์ <i class="fa-solid fa-share-nodes"></i></strong> หรือ <strong>จุด 3 จุด <i class="fa-solid fa-ellipsis-vertical"></i></strong></p></div>
-          <div><span>3</span><p>เลือก <strong>"เพิ่มไปยังหน้าจอหลัก" (Add to Home Screen)</strong></p></div>
-          <div><span>4</span><p>กด <strong>"เพิ่ม" (Add)</strong> เพื่อยืนยัน</p></div>
+          <div><span>3</span><p>เลือก <strong>"ติดตั้งแอป" (Install App)</strong> หรือ <strong>"เพิ่มไปยังหน้าจอหลัก"</strong></p></div>
+          <div><span>4</span><p>กด <strong>"ติดตั้ง" / "เพิ่ม"</strong> เพื่อยืนยัน</p></div>
         </div>
         <button type="button" class="shortcut-ok" id="shortcutOk">เข้าใจแล้ว</button>
       </div>
@@ -235,7 +233,6 @@
     <div id="setup-ui">  
         <div class="header">  
             <div class="hospital-logo-box">
-                <!-- โหลดโลโก้ 1920.png ถ้ามีไฟล์ภาพ หรือแสดงไอคอนหากไม่พบรูปภาพ -->
                 <img src="./1920.png" alt="Logo" class="hospital-logo-img" onerror="this.style.display='none'; document.getElementById('fallback-icon').style.display='block';">
                 <i class="fas fa-heartbeat hospital-logo-icon" id="fallback-icon" style="display:none;"></i>
             </div>
@@ -440,7 +437,7 @@
             </head>
             <body>
                 <div class="no-print">
-                    <p style="color: #636e72; margin-bottom: 10px;">💡 หากหน้าต่างพิมพ์ไม่เปิดขึ้นมาอัตโนมัติ หรือใช้งานบนมือถือ ให้กดปุ่มด้านล่างนี้ครับ</p>
+                    <p style="color: #636e72; margin-bottom: 10px;">💡 หากหน้าต่างพิมพ์ไม่เปิดขึ้นมาอัตโนมัติ ให้กดปุ่มด้านล่างนี้ครับ</p>
                     <button class="btn-action" onclick="window.print()">สั่งพิมพ์ / บันทึก PDF</button>
                     <button class="btn-action" style="background:#636e72;" onclick="window.close()">ปิดหน้าต่างนี้</button>
                 </div>
@@ -480,7 +477,6 @@
             printWindow.document.write(printContent);
             printWindow.document.close();
         } else {
-            alert("เบราว์เซอร์ของคุณบล็อกหน้าต่างป็อปอัป กรุณาอนุญาตให้เปิดป็อปอัป หรือเปิดลิงก์นี้บน Chrome/Safari ครับ");
             const printArea = document.getElementById('print-area');  
             printArea.innerHTML = printContent;  
             window.print();
@@ -500,18 +496,18 @@
       return (window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true);
     }
 
-    // 1. ลงทะเบียน Service Worker[span_1](start_span)[span_1](end_span)
+    // 1. ลงทะเบียน Service Worker
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("./sw.js").then(registration => {
-          console.log("Service Worker Registered Successfully:", registration.scope);
+          console.log("Service Worker Registered:", registration.scope);
         }).catch(error => {
           console.error("Service Worker Registration Failed:", error);
         });
       });
     }
 
-    // 2. จับ Event beforeinstallprompt เพื่อเปิดปุ่ม "ติดตั้งแอป" ทันทีถ้าเบราว์เซอร์รองรับ[span_2](start_span)[span_2](end_span)
+    // 2. ดักจับ Event ก่อนแสดงปุ่มติดตั้ง
     window.addEventListener("beforeinstallprompt", event => {
       event.preventDefault();
       deferredPrompt = event;
@@ -520,19 +516,19 @@
       }
     });
 
-    // กดปุ่มติดตั้งโดยตรง[span_3](start_span)[span_3](end_span)
+    // 3. กดปุ่มเพื่อแสดง Pop-up ติดตั้ง PWA
     if (directInstallBtn) {
       directInstallBtn.addEventListener("click", async () => {
         if (!deferredPrompt) return;
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User response to install prompt: ${outcome}`);
+        console.log(`User response: ${outcome}`);
         deferredPrompt = null;
         directInstallBtn.style.display = "none";
       });
     }
 
-    // กดปุ่มคู่มือวิธีติดตั้ง[span_4](start_span)[span_4](end_span)
+    // 4. แสดงคู่มือกรณีเบราว์เซอร์ไม่รองรับปุ่มตรง
     howInstallButton.addEventListener("click", () => {
       shortcutModal.style.display = "block";
       document.body.style.overflow = "hidden";
@@ -553,14 +549,12 @@
       }
     });
 
-    // เมื่อแอปติดตั้งเรียบร้อยแล้ว[span_5](start_span)[span_5](end_span)
     window.addEventListener("appinstalled", () => {
       deferredPrompt = null;
       shortcutModal.style.display = "none";
       installBox.style.display = "none";
     });
 
-    // ซ่อนกล่องแจ้งเตือนติดตั้งหากเปิดใช้งานแบบ App (Standalone) อยู่แล้ว[span_6](start_span)[span_6](end_span)
     if(isStandalone()){
       installBox.style.display = "none";
     }
