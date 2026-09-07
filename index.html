@@ -3,12 +3,12 @@
 <head>  
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">  
-    <title>Mental Health Smart Check - รพ.ดอนจาน</title>  
+    <title>Mental Health Smart Check</title>  
 
     <!-- PWA & Meta Tags -->
     <meta name="theme-color" content="#6c5ce7">
     <meta name="background-color" content="#f0f3f7">
-    <meta name="description" content="ระบบประเมินสุขภาพจิต (2Q, 9Q, ST-5, 8Q) โรงพยาบาลดอนจาน">
+    <meta name="description" content="ระบบประเมินสุขภาพจิต (2Q, 9Q, ST-5, 8Q)">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -305,7 +305,7 @@
         <div class="header">  
             <i class="fas fa-heartbeat hospital-logo"></i>  
             <h1 style="color:var(--primary); margin:10px 0; font-size: 24px;">Mental Health Smart Check</h1>  
-            <p style="color: #636e72;">โรงพยาบาลดอนจาน จ.กาฬสินธุ์</p>  
+            <p style="color: #636e72;">ระบบประเมินและคัดกรองสุขภาพจิต</p>  
         </div>  
         <div class="info-section">  
             <label><i class="fas fa-user-edit"></i> ชื่อ-นามสกุล ผู้รับบริการ</label>  
@@ -436,7 +436,7 @@
             
             if(!advice) {
                 if(scores.q9 >= 13) {
-                    advice = "พบภาวะซึมเศร้าระดับปานกลางถึงรุนแรง อาจเกิดจากความเหนื่อยล้าสะสมหรือภาวะเครียดในชีวิตประจำวัน แนะนำให้ปรึกษาบุคลากรทางการแพทย์หรือเข้าพบเจ้าหน้าที่สาธารณสุข ณ โรงพยาบาลใกล้บ้าน เพื่อรับการดูแลและคำแนะนำที่เหมาะสมอย่างทันท่วงทีครับ";
+                    advice = "พบภาวะซึมเศร้าระดับปานกลางถึงรุนแรง อาจเกิดจากความเหนื่อยล้าสะสมหรือภาวะเครียดในชีวิตประจำวัน แนะนำให้ปรึกษาบุคลากรทางการแพทย์หรือเข้าพบเจ้าหน้าที่สาธารณสุข ณ สถานพยาบาลใกล้บ้าน เพื่อรับการดูแลและคำแนะนำที่เหมาะสมอย่างทันท่วงทีครับ";
                 } else {
                     advice = "ช่วงนี้อาจมีความเครียดหรือความกังวลใจจากการทำงานหรือการดำเนินชีวิตประจำวัน แนะนำให้ผ่อนคลายความเหนื่อยล้า พูดคุยระบายความรู้สึกกับบุคคลที่ไว้วางใจ และสังเกตอาการตนเองเป็นระยะครับ";
                 }
@@ -459,7 +459,7 @@
         if(scores.q8 !== -1) {  
             let lv8 = scores.q8 === 0 ? "ปกติ" : scores.q8 <= 8 ? "ความเสี่ยงระดับน้อย" : scores.q8 <= 16 ? "ความเสี่ยงระดับปานกลาง" : "ความเสี่ยงระดับรุนแรง";  
             tableHtml += `<tr><td style="padding:10px;">4. แนวโน้มความรุนแรง (8Q)</td><td align="center">${scores.q8}</td><td style="padding:10px; font-weight:700; color:${getStatusColor(lv8)}">${lv8}</td></tr>`;  
-            if(scores.q8 >= 1) advice = "พบสัญญาณความเสี่ยงที่ต้องเฝ้าระวังอย่างใกล้ชิด เพื่อความปลอดภัยและการดูแลสุขภาพจิตที่ถูกต้อง แนะนำให้ติดต่อสายด่วนสุขภาพจิต โทร. 1323 (โทรฟรีตลอด 24 ชั่วโมง) หรือเข้ารับคำปรึกษาจากทีมแพทย์และพยาบาลที่โรงพยาบาลใกล้บ้านโดยเร็วครับ";  
+            if(scores.q8 >= 1) advice = "พบสัญญาณความเสี่ยงที่ต้องเฝ้าระวังอย่างใกล้ชิด เพื่อความปลอดภัยและการดูแลสุขภาพจิตที่ถูกต้อง แนะนำให้ติดต่อสายด่วนสุขภาพจิต โทร. 1323 (โทรฟรีตลอด 24 ชั่วโมง) หรือเข้ารับคำปรึกษาจากทีมแพทย์และพยาบาลที่สถานพยาบาลใกล้บ้านโดยเร็วครับ";  
         }  
   
         tableHtml += `</table>`;  
@@ -510,7 +510,6 @@
                 </div>
                 <div class="print-container">  
                     <h1>รายงานผลการประเมินสุขภาพจิตประชาชน</h1>  
-                    <p style="text-align:center; color: #555;">โรงพยาบาลดอนจาน จังหวัดกาฬสินธุ์</p>  
                     <hr style="border:0; border-top: 2px solid #6c5ce7; margin: 15px 0;">  
                     <p><b>ผู้รับบริการ:</b> ${name} &nbsp;&nbsp;&nbsp; <b>วันที่ประเมิน:</b> ${thaiDate}</p>  
                     <h3 style="font-size: 16px; margin: 15px 0 5px 0;">📊 รายละเอียดผลการประเมิน</h3>  
@@ -525,7 +524,7 @@
                         <div class="tip-item"><b>[✓] ผู้สูงอายุ (สร้างสุขร่วมกัน):</b> ทำกิจกรรมสร้างสรรค์เบาๆ ร่วมกับครอบครัว และรับแสงแดดยามเช้าเพื่อส่งเสริมการนอนหลับ</div>  
                     </div>  
                     <div class="footer-sign">  
-                        <p>ผู้รายงาน: <b>พว.ปนัทธพล จิตนาเรียง</b></p>  
+                        <p>ผู้สร้างและพัฒนาโปรแกรม: <b>พว.ปนัทธพล จิตนาเรียง</b></p>  
                         <p style="font-size:12px; color:#666; margin: 0;">พยาบาลวิชาชีพชำนาญการ (สุขภาพจิตเด็กและวัยรุ่น)</p>  
                     </div>  
                 </div>  
