@@ -1,7 +1,6 @@
+const CACHE_NAME = "mental-check-2q9q8q-v2";
 
-const CACHE_NAME = "mental-check-2q9q8q-v1";
-
-const FILES = [
+const FILES_TO_CACHE = [
   "./",
   "./index.html",
   "./manifest.json",
@@ -10,40 +9,33 @@ const FILES = [
   "./512.png"
 ];
 
-// ติดตั้งและบังคับใช้ทันที
 self.addEventListener("install", event => {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(FILES))
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(FILES_TO_CACHE);
+    })
   );
 });
 
-// ลบ Cache เวอร์ชันเก่าออกทั้งหมด
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
+        keys.map(key => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
       )
     ).then(() => self.clients.claim())
   );
 });
 
-// ดึงข้อมูลจาก Network ก่อน ถ้าไม่มีอินเทอร์เน็ตค่อยดึงจาก Cache
 self.addEventListener("fetch", event => {
   event.respondWith(
-    fetch(event.request)
-      .then(networkResponse => {
-        if (networkResponse && networkResponse.status === 200) {
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseToCache);
-          });
-        }
-        return networkResponse;
-      })
-      .catch(() => caches.match(event.request))
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
   );
 });
