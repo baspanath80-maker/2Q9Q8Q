@@ -1,41 +1,49 @@
-const CACHE_NAME = 'mental-check-v1';
-const ASSETS_TO_CACHE = [
-  './',
-  './index.html',
-  './manifest.json',
-  './1920.png',
-  './512.png',
-  './1800.png'
+
+const CACHE_NAME = "mental-check-2q9q8q-v1";
+
+const FILES = [
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./1920.png",
+  "./1800.png",
+  "./512.png"
 ];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
-    })
-  );
+// ติดตั้งและบังคับใช้ทันที
+self.addEventListener("install", event => {
   self.skipWaiting();
-});
-
-self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
-          }
-        })
-      );
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(FILES))
   );
-  self.clients.claim();
 });
 
-self.addEventListener('fetch', (event) => {
+// ลบ Cache เวอร์ชันเก่าออกทั้งหมด
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      )
+    ).then(() => self.clients.claim())
+  );
+});
+
+// ดึงข้อมูลจาก Network ก่อน ถ้าไม่มีอินเทอร์เน็ตค่อยดึงจาก Cache
+self.addEventListener("fetch", event => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
+    fetch(event.request)
+      .then(networkResponse => {
+        if (networkResponse && networkResponse.status === 200) {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
+        }
+        return networkResponse;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
