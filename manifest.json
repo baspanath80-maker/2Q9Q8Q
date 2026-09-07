@@ -1,31 +1,32 @@
 {
-  "name": "Mental Health Smart Check 2Q 9Q 8Q",
-  "short_name": "2Q9Q8Q Smart",
-  "description": "ระบบคัดกรองสุขภาพจิตและภาวะซึมเศร้า (2Q 9Q 8Q ST-5) โรงพยาบาลดอนจาน",
+  "name": "Mental Health Smart Check",
+  "short_name": "Mental Health",
+  "description": "แบบประเมินและคัดกรองสุขภาพจิต 2Q 9Q ST-5 และ 8Q",
   "lang": "th",
-  "start_url": "./index.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#ffffff",
+  "background_color": "#f0f3f7",
   "theme_color": "#6c5ce7",
   "icons": [
-    {
-      "src": "./512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
     {
       "src": "./1920.png",
       "sizes": "1920x1920",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "./1800.png",
       "sizes": "1800x1800",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
