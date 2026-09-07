@@ -1,7 +1,7 @@
 {
   "name": "Mental Health Smart Check",
-  "short_name": "Mental Health",
-  "description": "แบบประเมินและคัดกรองสุขภาพจิต 2Q 9Q ST-5 และ 8Q",
+  "short_name": "Mental Check",
+  "description": "แบบประเมินและคัดกรองสุขภาพจิต โรงพยาบาลดอนจาน",
   "lang": "th",
   "start_url": "./",
   "scope": "./",
@@ -20,7 +20,7 @@
       "src": "./1800.png",
       "sizes": "1800x1800",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any"
     },
     {
       "src": "./512.png",
