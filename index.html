@@ -17,10 +17,9 @@
     <link rel="manifest" href="./manifest.json">
 
     <!-- ICONS -->
-    <link rel="icon" type="image/png" sizes="1920x1920" href="./1920.png">
-    <link rel="icon" type="image/png" sizes="1800x1800" href="./1800.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="./512.png">
-    <link rel="apple-touch-icon" sizes="1800x1800" href="./1800.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./192.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
@@ -40,7 +39,7 @@
     }  
     .container { max-width: 700px; margin: auto; background: #ffffff; padding: 25px; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); position: relative; }  
       
-    /* INSTALL APP CARD */
+    /* INSTALL APP CARD (โครงสร้าง ADHD) */
     .install-app-box {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -57,8 +56,16 @@
       gap: 12px;
     }
 
+    .pwa-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .pwa-text-info h3 {
       margin: 0;
+      padding: 0;
+      background: none;
       color: var(--primary);
       font-size: 18px;
       font-weight: 700;
@@ -70,131 +77,49 @@
       color: #64748b;
     }
 
+    .btn-group-pwa {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn-install-direct {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 3px 8px rgba(108, 92, 231, .3);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-install-direct:hover { background: #5b4cc4; }
+
     .btn-how-to {
       background: #f1f5f9;
       color: #475569;
       border: 1px solid #cbd5e1;
       border-radius: 12px;
-      padding: 10px 20px;
+      padding: 11px 16px;
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
     }
 
-    /* BOTTOM SHEET MODAL (ตรงตามภาพตัวอย่าง) */
-    .bottom-sheet-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 999999;
-      display: none;
-    }
+    .btn-how-to:hover { background: #e2e8f0; }
 
-    .bottom-sheet-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(2px);
-    }
-
-    .bottom-sheet-card {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #ffffff;
-      border-top-left-radius: 28px;
-      border-top-right-radius: 28px;
-      padding: 25px 20px 35px 20px;
-      box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
-      animation: slideUp 0.3s ease-out;
-      max-width: 600px;
-      margin: auto;
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
-    }
-
-    .bottom-sheet-title {
-      text-align: center;
-      font-size: 20px;
-      font-weight: 700;
-      color: #2d3436;
-      margin-bottom: 20px;
-    }
-
-    .option-card-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .option-card-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #fdf2f0;
-      border-radius: 16px;
-      padding: 14px 18px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .option-card-item:hover {
-      background: #fae4e0;
-    }
-
-    .option-left-group {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .app-icon-wrapper {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      position: relative;
-    }
-
-    .app-icon-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .option-text-group h4 {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 700;
-      color: #2d3436;
-    }
-
-    .option-text-group p {
-      margin: 2px 0 0 0;
-      font-size: 13px;
-      color: #636e72;
-    }
-
-    .option-arrow {
-      color: #636e72;
-      font-size: 16px;
-    }
-
-    /* SHORTCUT INSTRUCTION MODAL */
+    /* SHORTCUT MODAL (โครงสร้าง ADHD) */
     .shortcut-modal {
       position: fixed;
       inset: 0;
-      z-index: 1000000;
-      display: none;
+      z-index: 100000;
     }
 
     .shortcut-overlay {
@@ -210,27 +135,83 @@
       transform: translate(-50%,-50%);
       width: calc(100% - 30px);
       max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
       background: white;
       border-radius: 25px;
-      padding: 30px 22px 22px;
+      padding: 32px 25px 25px;
       text-align: center;
+      box-shadow: 0 15px 50px rgba(0,0,0,.25);
     }
 
     .shortcut-close {
       position: absolute;
       right: 15px;
       top: 12px;
+      width: 40px;
+      height: 40px;
       border: none;
       background: transparent;
-      font-size: 22px;
+      font-size: 23px;
       color: #777;
       cursor: pointer;
     }
 
-    .shortcut-steps { text-align: left; margin-top: 15px; }
-    .shortcut-steps div { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid #eee; }
-    .shortcut-steps span { width: 28px; height: 28px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
-    .shortcut-ok { width: 100%; margin-top: 20px; padding: 12px; border: none; border-radius: 12px; background: var(--primary); color: white; font-weight: 600; cursor: pointer; }
+    .shortcut-card h2 {
+      display: block;
+      color: var(--primary);
+      font-size: 23px;
+      margin: 10px 0;
+    }
+
+    .shortcut-card > p {
+      color: #555;
+      font-size: 16px;
+      margin: 0 0 10px;
+    }
+
+    .shortcut-steps {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .shortcut-steps div {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 5px;
+      border-bottom: 1px solid #eee;
+      font-size: 16px;
+    }
+
+    .shortcut-steps span {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .shortcut-steps p { margin: 2px 0 0; }
+
+    .shortcut-ok {
+      width: 100%;
+      margin-top: 22px;
+      padding: 13px;
+      border: none;
+      border-radius: 12px;
+      background: var(--primary);
+      color: white;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+    }
 
     .header { text-align: center; margin-bottom: 25px; }  
     .hospital-logo { font-size: 60px; color: var(--primary); }  
@@ -259,9 +240,21 @@
     .btn-pdf { background: #2d3436; color: white; }  
     #print-area { display: none; } 
 
+    @media(max-width:768px) {
+      .pwa-header-row { flex-direction: column; align-items: flex-start; gap: 15px; }
+      .pwa-title-group { align-items: flex-start; }
+      .pwa-text-info h3 { font-size: 16px; }
+      .pwa-text-info p { font-size: 13px; }
+      .btn-group-pwa { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
+      .btn-install-direct, .btn-how-to { flex: 1; padding: 10px 12px; font-size: 14px; text-align: center; justify-content: center; }
+      .shortcut-card { width: calc(100% - 20px); padding: 28px 18px 20px; }
+      .shortcut-card h2 { font-size: 21px; }
+      .shortcut-steps div { font-size: 15px; }
+    }
+
     @media print {  
         html, body { background: #ffffff !important; padding: 0 !important; margin: 0 !important; }  
-        .container, #setup-ui, .btn-group, .header, #installBox, #installModal, #shortcutModal { display: none !important; } 
+        .container, #setup-ui, .btn-group, .header, #installBox, #shortcutModal { display: none !important; } 
         #print-area { display: block !important; width: 170mm; margin: 0 auto; }  
         @page { size: A4; margin: 15mm 10mm; }  
     }  
@@ -272,69 +265,61 @@
     <!-- INSTALL APP CARD -->
     <div class="install-app-box" id="installBox">
       <div class="pwa-header-row">
-        <div class="pwa-text-info">
-          <h3>เพิ่ม Mental Health Smart Check ลงหน้าจอ</h3>
-          <p>เปิดใช้งานได้สะดวก รวดเร็ว และรองรับแบบ Offline</p>
+        <div class="pwa-title-group">
+          <div class="pwa-text-info">
+            <h3>เพิ่ม Mental Health Smart Check ลงหน้าจอ</h3>
+            <p>เปิดใช้งานได้สะดวก รวดเร็ว และรองรับแบบ Offline</p>
+          </div>
         </div>
-        <button type="button" class="btn-how-to" id="howInstallButton">
-          วิธีติดตั้ง
-        </button>
-      </div>
-    </div>
 
-    <!-- BOTTOM SHEET MODAL (แบบเดียวกับภาพตัวอย่าง) -->
-    <div class="bottom-sheet-modal" id="installModal">
-      <div class="bottom-sheet-overlay" id="closeInstallModal"></div>
-      <div class="bottom-sheet-card">
-        <div class="bottom-sheet-title">ติดตั้งและสร้างทางลัด</div>
-        <div class="option-card-list">
-          
-          <!-- ตัวเลือกที่ 1: ติดตั้งแอป -->
-          <div class="option-card-item" id="optInstallDirect">
-            <div class="option-left-group">
-              <div class="app-icon-wrapper">
-                <img src="./512.png" alt="App Icon">
-              </div>
-              <div class="option-text-group">
-                <h4>ติดตั้งแอปนี้แล้ว</h4>
-                <p>คลิกเพื่อติดตั้งหรือเปิดแอป</p>
-              </div>
-            </div>
-            <div class="option-arrow"><i class="fa-solid fa-chevron-right"></i></div>
-          </div>
-
-          <!-- ตัวเลือกที่ 2: สร้างทางลัดบน Chrome -->
-          <div class="option-card-item" id="optShortcutGuide">
-            <div class="option-left-group">
-              <div class="app-icon-wrapper">
-                <img src="./512.png" alt="App Icon">
-                <i class="fa-brands fa-chrome" style="position:absolute; bottom:2px; right:2px; font-size:12px; color:#4285F4; background:#fff; border-radius:50%;"></i>
-              </div>
-              <div class="option-text-group">
-                <h4>สร้างทางลัด</h4>
-                <p>ทางลัดจะเปิดใน Chrome</p>
-              </div>
-            </div>
-            <div class="option-arrow"><i class="fa-solid fa-chevron-right"></i></div>
-          </div>
-
+        <div class="btn-group-pwa">
+          <button type="button" class="btn-install-direct" id="directInstallBtn" style="display: none;">
+            <i class="fa-solid fa-download"></i> ติดตั้งแอป
+          </button>
+          <button type="button" class="btn-how-to" id="howInstallButton">
+            วิธีติดตั้ง
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- SHORTCUT GUIDE MODAL -->
-    <div class="shortcut-modal" id="shortcutModal">
-      <div class="shortcut-overlay" id="closeShortcutOverlay"></div>
+    <!-- INSTALL INSTRUCTION MODAL -->
+    <div class="shortcut-modal" id="shortcutModal" style="display:none;">
+      <div class="shortcut-overlay"></div>
       <div class="shortcut-card">
-        <button type="button" class="shortcut-close" id="closeShortcutModal"><i class="fa-solid fa-xmark"></i></button>
-        <h2 style="color:var(--primary); font-size:20px; margin:0 0 10px;">วิธีสร้างทางลัดลงหน้าจอ</h2>
+        <button type="button" class="shortcut-close" id="closeShortcutModal" aria-label="ปิด">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <h2>วิธีติดตั้ง Mental Health Smart Check</h2>
+        <p>เพิ่มเว็บไซต์ลงในหน้าจอหลัก ด้วย Google Chrome</p>
+
         <div class="shortcut-steps">
-          <div><span>1</span><p>เปิดด้วย <strong>Google Chrome</strong></p></div>
-          <div><span>2</span><p>กด <strong>⋮</strong> มุมขวาบน</p></div>
-          <div><span>3</span><p>เลือก <strong>เพิ่มลงในหน้าจอหลัก</strong></p></div>
-          <div><span>4</span><p>กด <strong>เพิ่ม</strong></p></div>
+          <div>
+            <span>1</span>
+            <p>เปิดเว็บไซต์ด้วย <strong>Google Chrome</strong></p>
+          </div>
+          <div>
+            <span>2</span>
+            <p>กด <strong>⋮</strong> มุมขวาบน</p>
+          </div>
+          <div>
+            <span>3</span>
+            <p>เลือก <strong>เพิ่มลงในหน้าจอหลัก</strong></p>
+          </div>
+          <div>
+            <span>4</span>
+            <p>กด <strong>เพิ่ม</strong></p>
+          </div>
+          <div>
+            <span>5</span>
+            <p>จะได้ไอคอน <strong>Mental Health Smart Check</strong></p>
+          </div>
         </div>
-        <button type="button" class="shortcut-ok" id="shortcutOk">เข้าใจแล้ว</button>
+
+        <button type="button" class="shortcut-ok" id="shortcutOk">
+          เข้าใจแล้ว
+        </button>
       </div>
     </div>
 
@@ -538,70 +523,80 @@
         }
     }
 
-    /* PWA INSTALL & BOTTOM SHEET MODAL HANDLERS */
+    /* PWA INSTALL & SERVICE WORKER HANDLERS (โครงสร้าง ADHD) */
     let deferredPrompt = null;
     const installBox = document.getElementById("installBox");
+    const directInstallBtn = document.getElementById("directInstallBtn");
     const howInstallButton = document.getElementById("howInstallButton");
-    const installModal = document.getElementById("installModal");
-    const closeInstallModal = document.getElementById("closeInstallModal");
-    const optInstallDirect = document.getElementById("optInstallDirect");
-    const optShortcutGuide = document.getElementById("optShortcutGuide");
-
     const shortcutModal = document.getElementById("shortcutModal");
     const closeShortcutModal = document.getElementById("closeShortcutModal");
-    const closeShortcutOverlay = document.getElementById("closeShortcutOverlay");
     const shortcutOk = document.getElementById("shortcutOk");
 
     function isStandalone(){
       return (window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true);
     }
 
+    // 1. ลงทะเบียน Service Worker
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js");
+        navigator.serviceWorker.register("./sw.js").then(registration => {
+          console.log("Service Worker Registered Successfully:", registration.scope);
+        }).catch(error => {
+          console.error("Service Worker Registration Failed:", error);
+        });
       });
     }
 
+    // 2. จับ Event beforeinstallprompt เพื่อเปิดปุ่ม "ติดตั้งแอป" ทันทีถ้าเบราว์เซอร์รองรับ
     window.addEventListener("beforeinstallprompt", event => {
       event.preventDefault();
       deferredPrompt = event;
-    });
-
-    // เมื่อกดปุ่ม "วิธีติดตั้ง" จะเด้ง Bottom Sheet ขึ้นมาจากด้านล่างแบบในรูปภาพ
-    howInstallButton.addEventListener("click", () => {
-      installModal.style.display = "block";
-    });
-
-    closeInstallModal.addEventListener("click", () => {
-      installModal.style.display = "none";
-    });
-
-    // กรณีเลือก "ติดตั้งแอปนี้แล้ว / คลิกเพื่อเปิดแอป"
-    optInstallDirect.addEventListener("click", async () => {
-      installModal.style.display = "none";
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        deferredPrompt = null;
-      } else {
-        alert("ระบบพร้อมใช้งานหรือถูกติดตั้งลงเครื่องแล้วครับ");
+      if (directInstallBtn) {
+        directInstallBtn.style.display = "inline-flex";
       }
     });
 
-    // กรณีเลือก "สร้างทางลัด / ทางลัดจะเปิดใน Chrome"
-    optShortcutGuide.addEventListener("click", () => {
-      installModal.style.display = "none";
+    // กดปุ่มติดตั้งโดยตรง
+    if (directInstallBtn) {
+      directInstallBtn.addEventListener("click", async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to install prompt: ${outcome}`);
+        deferredPrompt = null;
+        directInstallBtn.style.display = "none";
+      });
+    }
+
+    // กดปุ่มคู่มือวิธีติดตั้ง
+    howInstallButton.addEventListener("click", () => {
       shortcutModal.style.display = "block";
+      document.body.style.overflow = "hidden";
     });
 
     function closeShortcut(){
       shortcutModal.style.display = "none";
+      document.body.style.overflow = "";
     }
 
     closeShortcutModal.addEventListener("click", closeShortcut);
-    closeShortcutOverlay.addEventListener("click", closeShortcut);
     shortcutOk.addEventListener("click", closeShortcut);
+    document.querySelector(".shortcut-overlay").addEventListener("click", closeShortcut);
 
+    document.addEventListener("keydown", event => {
+      if(event.key === "Escape" && shortcutModal.style.display === "block"){
+        closeShortcut();
+      }
+    });
+
+    // เมื่อแอปติดตั้งเรียบร้อยแล้ว
+    window.addEventListener("appinstalled", () => {
+      deferredPrompt = null;
+      shortcutModal.style.display = "none";
+      installBox.style.display = "none";
+    });
+
+    // ซ่อนกล่องแจ้งเตือนติดตั้งหากเปิดใช้งานแบบ App (Standalone) อยู่แล้ว
     if(isStandalone()){
       installBox.style.display = "none";
     }
