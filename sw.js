@@ -1,9 +1,10 @@
-const CACHE_NAME = "mental-health-smart-v2";
+const CACHE_NAME = "mental-health-smart-v1";
 
 const FILES = [
   "./",
   "./index.html",
   "./manifest.json",
+  "./180.png",
   "./192.png",
   "./512.png"
 ];
@@ -29,7 +30,7 @@ self.addEventListener("activate", event => {
   );
 });
 
-// ดึงข้อมูลจาก Network ก่อน ถ้าไม่มีอินเทอร์เน็ตค่อยดึงจาก Cache
+// ดึงข้อมูลจาก Network ก่อน ถ้าไม่มีอินเทอร์เน็ตค่อยดึงจาก Cache (Network-First)
 self.addEventListener("fetch", event => {
   event.respondWith(
     fetch(event.request)
