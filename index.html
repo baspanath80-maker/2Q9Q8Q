@@ -1,564 +1,821 @@
-<!DOCTYPE html>  
-<html lang="th">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">  
-    <title>Mental Health Smart Check - รพ.ดอนจาน</title>  
-    
-    <meta name="theme-color" content="#6c5ce7">
-    <meta name="background-color" content="#f0f3f7">
-    <meta name="description" content="Mental Health Smart Check ระบบคัดกรองสุขภาพจิต 2Q 9Q 8Q ST-5 โรงพยาบาลดอนจาน">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Mental Check">
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mental Health Smart Check (2Q 9Q 8Q ST-5)</title>
 
-    <!-- PWA MANIFEST & ICONS -->
-    <link rel="manifest" href="./manifest.json">
-    <link rel="icon" type="image/png" sizes="1920x1920" href="./1920.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="./512.png">
-    <link rel="apple-touch-icon" sizes="1800x1800" href="./1800.png">
-    <link rel="shortcut icon" href="./1920.png">
+<meta name="theme-color" content="#6c5ce7">
+<meta name="background-color" content="#ffffff">
+<meta name="description" content="ระบบคัดกรองสุขภาพจิตและภาวะซึมเศร้า (2Q 9Q 8Q ST-5) โรงพยาบาลดอนจาน">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="2Q9Q8Q Smart">
 
-    <!-- FONT & FONT AWESOME -->
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
+<!-- PWA MANIFEST -->
+<link rel="manifest" href="./manifest.json">
 
-<style>  
-    :root {   
-        --primary: #6c5ce7; 
-        --primary-dark: #5b4bc4;
-        --secondary: #a29bfe; 
-        --success: #00b894;   
-        --warning: #fdcb6e; 
-        --orange: #e17055; 
-        --danger: #d63031; 
-        --bg: #f0f3f7;   
-    }  
-      
-    * { box-sizing: border-box; }
-    body { 
-        font-family: 'Sarabun', sans-serif; 
-        background-color: var(--bg); 
-        color: #2d3436; 
-        margin: 0; 
-        padding: 30px 15px; 
-        overflow-x: hidden; 
-        line-height: 1.6;
-    }  
-    button, input, select { font-family: 'Sarabun', sans-serif; }
+<!-- ICONS -->
+<link rel="icon" type="image/png" sizes="1920x1920" href="./1920.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./512.png">
+<link rel="apple-touch-icon" sizes="1800x1800" href="./1800.png">
+<link rel="shortcut icon" href="./1920.png">
 
-    .container { 
-        max-width: 750px; 
-        margin: auto; 
-        background: #ffffff; 
-        padding: 35px; 
-        border-radius: 24px; 
-        box-shadow: 0 15px 35px rgba(108, 92, 231, 0.08); 
-        position: relative; 
-    }  
-      
-    /* HEADER */
-    .header { text-align: center; margin-bottom: 30px; }  
-    .hospital-logo-box {
-        width: 90px;
-        height: 90px;
-        margin: 0 auto 15px;
-        border-radius: 50%;
-        background: #f1f0fe;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
-    .hospital-logo-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    .hospital-logo-icon { font-size: 45px; color: var(--primary); }  
-    .header h1 { color: var(--primary); margin: 10px 0 5px; font-size: 26px; font-weight: 700; }
-    .header p { color: #636e72; margin: 0; font-size: 15px; }
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    /* INSTALL APP CARD */
-    .install-app-box {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 20px;
-        padding: 20px;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-    }
-    .pwa-header-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .pwa-title-group { display: flex; align-items: center; gap: 12px; }
-    .pwa-text-info h3 { margin: 0; color: var(--primary); font-size: 18px; font-weight: 700; }
-    .pwa-text-info p { margin: 2px 0 0; font-size: 14px; color: #64748b; }
-    .btn-group-pwa { display: flex; gap: 8px; align-items: center; }
-    .btn-install-direct {
-        background: var(--primary); color: white; border: none; border-radius: 12px;
-        padding: 11px 20px; font-size: 16px; font-weight: 600; cursor: pointer;
-        display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 3px 8px rgba(108, 92, 231, 0.3);
-        white-space: nowrap;
-    }
-    .btn-install-direct:hover { background: var(--primary-dark); }
-    .btn-how-to {
-        background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; border-radius: 12px;
-        padding: 11px 16px; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap;
-    }
-    .btn-how-to:hover { background: #e2e8f0; }
+<!-- FONT AWESOME -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    /* SHORTCUT MODAL */
-    .shortcut-modal { position: fixed; inset: 0; z-index: 100000; }
-    .shortcut-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.65); }
-    .shortcut-card {
-        position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
-        width: calc(100% - 30px); max-width: 500px; max-height: 90vh; overflow-y: auto;
-        background: white; border-radius: 25px; padding: 32px 25px 25px; text-align: center;
-        box-shadow: 0 15px 50px rgba(0,0,0,0.25);
-    }
-    .shortcut-close { position: absolute; right: 15px; top: 12px; border: none; background: transparent; font-size: 23px; color: #777; cursor: pointer; width: 40px; height: 40px; }
-    .shortcut-card h2 { color: var(--primary); font-size: 23px; margin: 10px 0; }
-    .shortcut-card > p { color: #555; font-size: 16px; margin: 0 0 10px; }
-    .shortcut-steps { text-align: left; margin-top: 20px; }
-    .shortcut-steps div { display: flex; align-items: flex-start; gap: 12px; padding: 13px 5px; border-bottom: 1px solid #eee; font-size: 16px; }
-    .shortcut-steps span {
-        width: 32px; height: 32px; min-width: 32px; border-radius: 50%; background: var(--primary);
-        color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;
-    }
-    .shortcut-steps p { margin: 2px 0 0; }
-    .shortcut-ok { width: 100%; margin-top: 22px; padding: 13px; border: none; border-radius: 12px; background: var(--primary); color: white; font-size: 17px; font-weight: 600; cursor: pointer; }
-      
-    /* FORM & QUESTION UI */
-    .info-section { background: linear-gradient(135deg, #f1f4ff, #e8edff); padding: 20px; border-radius: 20px; margin-bottom: 25px; border: 2px dashed var(--secondary); }  
-    label { font-weight: 700; color: var(--primary); display: block; margin-bottom: 8px; }  
-    input[type="text"] { width: 100%; padding: 12px 16px; border: 2px solid #dfe6e9; border-radius: 15px; font-size: 16px; }  
-    input[type="text"]:focus { border-color: var(--primary); outline: none; }
+<style>
+:root {
+  --primary: #6c5ce7;
+  --primary-dark: #5b4bc4;
+  --primary-light: #f0edff;
+  --text-main: #2d3436;
+  --text-muted: #636e72;
+  --bg-body: #f8f9fa;
+  --card-bg: #ffffff;
+  --shadow-soft: 0 15px 35px rgba(108,92,231,.08);
+  --success-color: #2ed573;
+  --warning-color: #ffa502;
+  --danger-color: #ff4757;
+}
 
-    .form-section { display: none; }  
-    .active { display: block; animation: slideIn 0.4s ease-out; }  
-    @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }  
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Sarabun', sans-serif;
+  margin: 0;
+  padding: 30px 15px;
+  background: var(--bg-body);
+  color: var(--text-main);
+  line-height: 1.6;
+}
+button, input, select, textarea { font-family: 'Sarabun', sans-serif; }
 
-    .question-card { background: #fff; border: 1px solid #edf2f7; padding: 20px; margin-bottom: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }  
-    .question-card p { font-weight: 600; font-size: 1.05rem; color: #333; margin-top: 0; }  
+.container {
+  max-width: 850px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(108,92,231,.08);
+}
 
-    .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-top: 15px; }  
-    .option-item input { display: none; }  
-    .option-item label {   
-        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;  
-        padding: 12px 8px; text-align: center; background: #f8f9fa; border: 2px solid #eee; border-radius: 15px;   
-        cursor: pointer; transition: 0.2s; font-weight: 600; margin: 0; font-size: 14px;
-    }  
+/* INSTALL APP CARD */
+.install-app-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.03);
+}
 
-    .opt-green input:checked + label { background: var(--success) !important; color: white; border-color: var(--success); }  
-    .opt-yellow input:checked + label { background: var(--warning) !important; color: white; border-color: var(--warning); }  
-    .opt-orange input:checked + label { background: var(--orange) !important; color: white; border-color: var(--orange); }  
-    .opt-red input:checked + label { background: var(--danger) !important; color: white; border-color: var(--danger); }  
+.pwa-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
 
-    .result-box { display: none; text-align: center; animation: zoomIn 0.4s; }  
-    @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }  
-      
-    table { width: 100%; border-collapse: collapse; margin: 20px 0; border-radius: 15px; overflow: hidden; }  
-    th { background: var(--primary); color: white; padding: 15px; text-align: left; }  
-    td { padding: 15px; border-bottom: 1px solid #f1f1f1; text-align: left; background: #fff; }  
+.pwa-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-    .btn-group { display: flex; flex-direction: column; gap: 12px; margin-top: 25px; }  
-    button.btn-next, button.btn-pdf { width: 100%; padding: 16px; border-radius: 18px; border: none; cursor: pointer; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; }  
-    .btn-next { background: var(--primary); color: white; box-shadow: 0 8px 20px rgba(108, 92, 231, 0.25); }  
-    .btn-pdf { background: #2d3436; color: white; }  
+.pwa-text-info h3 {
+  margin: 0;
+  padding: 0;
+  background: none;
+  color: var(--primary);
+  font-size: 18px;
+  font-weight: 700;
+}
 
-    #print-area { display: none; } 
+.pwa-text-info p {
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: #64748b;
+}
 
-    @media(max-width:768px) {
-        body { padding: 12px 8px; }
-        .container { padding: 22px 16px; border-radius: 20px; }
-        .pwa-header-row { flex-direction: column; align-items: flex-start; gap: 15px; }
-        .pwa-title-group { align-items: flex-start; }
-        .pwa-text-info h3 { font-size: 16px; }
-        .pwa-text-info p { font-size: 13px; }
-        .btn-group-pwa { width: 100%; justify-content: flex-start; flex-wrap: wrap; }
-        .btn-install-direct, .btn-how-to { flex: 1; padding: 10px 12px; font-size: 14px; text-align: center; justify-content: center; }
-        .options { grid-template-columns: repeat(2, 1fr); }
-    }
+.btn-group-pwa {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
 
-    @media print {  
-        html, body { background: #ffffff !important; padding: 0 !important; margin: 0 !important; }  
-        .container, #setup-ui, .btn-group, .header, .install-app-box { display: none !important; } 
-        #print-area { display: block !important; width: 170mm; margin: 0 auto; box-sizing: border-box; }  
-        @page { size: A4; margin: 15mm 10mm; }  
-    }  
+.btn-install-direct {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 11px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 3px 8px rgba(108,92,231,.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-install-direct:hover { background: var(--primary-dark); }
+
+.btn-how-to {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 11px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-how-to:hover { background: #e2e8f0; }
+
+/* SHORTCUT MODAL */
+.shortcut-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+}
+
+.shortcut-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+}
+
+.shortcut-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: calc(100% - 30px);
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: white;
+  border-radius: 25px;
+  padding: 32px 25px 25px;
+  text-align: center;
+  box-shadow: 0 15px 50px rgba(0,0,0,.25);
+}
+
+.shortcut-close {
+  position: absolute;
+  right: 15px;
+  top: 12px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  font-size: 23px;
+  color: #777;
+  cursor: pointer;
+}
+
+.shortcut-card h2 {
+  display: block;
+  color: var(--primary-dark);
+  font-size: 23px;
+  margin: 10px 0;
+}
+
+.shortcut-card > p {
+  color: #555;
+  font-size: 16px;
+  margin: 0 0 10px;
+}
+
+.shortcut-steps {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.shortcut-steps div {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 5px;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+}
+
+.shortcut-steps span {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.shortcut-steps p { margin: 2px 0 0; }
+
+.shortcut-ok {
+  width: 100%;
+  margin-top: 22px;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary);
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* HEADER */
+.header-brand {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.brand-icon {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  color: var(--primary);
+  background: var(--primary-light);
+  font-size: 40px;
+}
+
+h1 { color: var(--primary-dark); margin: 0 0 5px; font-size: 28px; }
+.subtitle { color: var(--text-muted); font-size: 15px; margin: 0; }
+
+/* FORM & SECTION STYLES */
+.section-title {
+  color: var(--primary-dark);
+  background: var(--primary-light);
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 18px;
+  margin: 25px 0 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.info-group { display: flex; flex-direction: column; }
+label { margin-bottom: 6px; font-weight: 600; font-size: 14px; color: #4a5568; }
+
+input[type="text"], input[type="number"], input[type="date"], select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.question-block {
+  background: #fff;
+  border: 1px solid #edf2f7;
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+}
+
+.question-block p { margin: 0 0 10px; font-weight: 600; font-size: 15px; }
+
+.radio-group { display: flex; gap: 15px; flex-wrap: wrap; }
+.radio-label {
+  display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 14px;
+}
+
+.form-buttons { display: flex; gap: 12px; margin-top: 30px; }
+.form-buttons button {
+  flex: 1;
+  padding: 12px 20px;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}
+#btnCalculate { background: var(--primary); }
+#btnPrint { background: #475569; }
+#btnReset { background: var(--danger-color); }
+
+#resultSection {
+  margin-top: 35px;
+  padding: 25px;
+  border-radius: 18px;
+  background: #f8fafc;
+  border: 1.5px solid var(--primary-light);
+  display: none;
+}
+
+@media(max-width:768px) {
+  body { padding: 10px 8px; }
+  .container { padding: 20px 12px; }
+  .info-grid { grid-template-columns: 1fr; }
+  .pwa-header-row { flex-direction: column; align-items: flex-start; gap: 15px; }
+  .btn-group-pwa { width: 100%; }
+  .btn-install-direct, .btn-how-to { flex: 1; text-align: center; justify-content: center; }
+  .form-buttons { flex-direction: column; }
+}
 </style>
-</head>  
-<body>  
-<div class="container">  
+</head>
 
-    <!-- INSTALL APP CARD -->
-    <div class="install-app-box" id="installBox">
-      <div class="pwa-header-row">
-        <div class="pwa-title-group">
-          <div class="pwa-text-info">
-            <h3>เพิ่ม Mental Health Smart Check ลงหน้าจอ</h3>
-            <p>เปิดใช้งานได้สะดวก รวดเร็ว และรองรับแบบ Offline</p>
-          </div>
-        </div>
-        <div class="btn-group-pwa">
-          <button type="button" class="btn-install-direct" id="directInstallBtn" style="display: none;">
-            <i class="fa-solid fa-download"></i> ติดตั้งแอป
-          </button>
-          <button type="button" class="btn-how-to" id="howInstallButton">
-            วิธีติดตั้ง
-          </button>
-        </div>
+<body>
+
+<div class="container">
+
+<!-- INSTALL APP CARD -->
+<div class="install-app-box" id="installBox">
+  <div class="pwa-header-row">
+    <div class="pwa-title-group">
+      <div class="pwa-text-info">
+        <h3>เพิ่ม Mental Health Smart Check ลงหน้าจอ</h3>
+        <p>เปิดใช้งานได้สะดวก รวดเร็ว และรองรับแบบ Offline</p>
       </div>
     </div>
 
-    <!-- INSTALL INSTRUCTION MODAL -->
-    <div class="shortcut-modal" id="shortcutModal" style="display:none;">
-      <div class="shortcut-overlay"></div>
-      <div class="shortcut-card">
-        <button type="button" class="shortcut-close" id="closeShortcutModal" aria-label="ปิด">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-        <h2>วิธีติดตั้งเข้าหน้าจอมือถือ</h2>
-        <p>ติดตั้งเพื่อใช้งานเสมือนแอปพลิเคชัน</p>
-        <div class="shortcut-steps">
-          <div><span>1</span><p>เปิดเว็บไซต์ด้วย <strong>Safari (iOS)</strong> หรือ <strong>Chrome (Android)</strong></p></div>
-          <div><span>2</span><p>กดปุ่ม <strong>แชร์ <i class="fa-solid fa-share-nodes"></i></strong> หรือ <strong>จุด 3 จุด <i class="fa-solid fa-ellipsis-vertical"></i></strong></p></div>
-          <div><span>3</span><p>เลือก <strong>"ติดตั้งแอป" (Install App)</strong> หรือ <strong>"เพิ่มไปยังหน้าจอหลัก"</strong></p></div>
-          <div><span>4</span><p>กด <strong>"ติดตั้ง" / "เพิ่ม"</strong> เพื่อยืนยัน</p></div>
-        </div>
-        <button type="button" class="shortcut-ok" id="shortcutOk">เข้าใจแล้ว</button>
+    <div class="btn-group-pwa">
+      <button type="button" class="btn-install-direct" id="directInstallBtn" style="display: none;">
+        <i class="fa-solid fa-download"></i> ติดตั้งแอป
+      </button>
+      <button type="button" class="btn-how-to" id="howInstallButton">
+        วิธีติดตั้ง
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- INSTALL INSTRUCTION MODAL -->
+<div class="shortcut-modal" id="shortcutModal" style="display:none;">
+  <div class="shortcut-overlay"></div>
+  <div class="shortcut-card">
+    <button type="button" class="shortcut-close" id="closeShortcutModal" aria-label="ปิด">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <h2>วิธีติดตั้ง 2Q 9Q 8Q Smart Check</h2>
+    <p>เพิ่มเว็บไซต์ลงในหน้าจอหลัก ด้วย Google Chrome / Safari</p>
+
+    <div class="shortcut-steps">
+      <div>
+        <span>1</span>
+        <p>เปิดเว็บไซต์ด้วย <strong>Google Chrome</strong> หรือ <strong>Safari</strong></p>
+      </div>
+      <div>
+        <span>2</span>
+        <p>กด <strong>⋮</strong> มุมขวาบน (หรือปุ่มแชร์ใน iOS)</p>
+      </div>
+      <div>
+        <span>3</span>
+        <p>เลือก <strong>เพิ่มลงในหน้าจอหลัก (Add to Home Screen)</strong></p>
+      </div>
+      <div>
+        <span>4</span>
+        <p>กด <strong>เพิ่ม / ติดตั้ง</strong></p>
+      </div>
+      <div>
+        <span>5</span>
+        <p>จะได้ไอคอน <strong>Mental Health Smart Check</strong> บนหน้าจอมือถือ</p>
       </div>
     </div>
 
-    <div id="setup-ui">  
-        <div class="header">  
-            <div class="hospital-logo-box">
-                <img src="./1920.png" alt="Logo" class="hospital-logo-img" onerror="this.style.display='none'; document.getElementById('fallback-icon').style.display='block';">
-                <i class="fas fa-heartbeat hospital-logo-icon" id="fallback-icon" style="display:none;"></i>
-            </div>
-            <h1>Mental Health Smart Check</h1>  
-            <p>โรงพยาบาลดอนจาน จ.กาฬสินธุ์</p>  
-        </div>  
+    <button type="button" class="shortcut-ok" id="shortcutOk">
+      เข้าใจแล้ว
+    </button>
+  </div>
+</div>
 
-        <div class="info-section">  
-            <label><i class="fas fa-user-edit"></i> ชื่อ-นามสกุล ผู้รับบริการ</label>  
-            <input type="text" id="client-name" placeholder="ระบุชื่อเพื่อบันทึกในรายงาน...">  
-        </div>  
+<!-- HEADER -->
+<div class="header-brand">
+  <div class="brand-icon">
+    <i class="fa-solid fa-brain"></i>
+  </div>
+  <h1>Mental Health Smart Check</h1>
+  <p class="subtitle">ระบบคัดกรองสุขภาพจิตและภาวะซึมเศร้า (2Q 9Q 8Q ST-5) - โรงพยาบาลดอนจาน</p>
+</div>
 
-        <div id="section-2q" class="form-section active">  
-            <h2 style="color:var(--primary); border-left: 5px solid var(--primary); padding-left: 10px;">ระดับ 1: คัดกรอง 2Q</h2>  
-            <div id="q2-content"></div>  
-            <button class="btn-next" onclick="nextFrom2Q()">ไปต่อเพื่อประเมินผล <i class="fas fa-chevron-right"></i></button>  
-        </div>  
-
-        <div id="section-9q" class="form-section">  
-            <h2 style="color:var(--primary); border-left: 5px solid var(--primary); padding-left: 10px;">ระดับ 2: ประเมินโรคซึมเศร้า 9Q</h2>  
-            <div id="q9-content"></div>  
-            <button class="btn-next" onclick="nextFrom9Q()">วิเคราะห์ผล <i class="fas fa-magic"></i></button>  
-        </div>  
-
-        <div id="section-st5" class="form-section">  
-            <h2 style="color:var(--primary); border-left: 5px solid var(--primary); padding-left: 10px;">ระดับ 3: ความเครียด ST-5</h2>  
-            <div id="st5-content"></div>  
-            <button class="btn-next" onclick="finishST5()">ดูผลลัพธ์สุดท้าย <i class="fas fa-chart-pie"></i></button>  
-        </div>  
-
-        <div id="section-8q" class="form-section">  
-            <h2 style="color:var(--danger); border-left: 5px solid var(--danger); padding-left: 10px;">ระดับพิเศษ: ความปลอดภัย 8Q</h2>  
-            <div id="q8-content"></div>  
-            <button class="btn-next" onclick="finish8Q()">ดูผลลัพธ์สุดท้าย <i class="fas fa-shield-alt"></i></button>  
-        </div>  
-    </div>  
-
-    <div id="section-result" class="result-box">  
-        <i class="fas fa-poll-h" style="font-size: 60px; color: var(--primary); margin-bottom: 15px;"></i>  
-        <h2 style="margin:0; font-size:22px;">สรุปผลการประเมิน</h2>  
-        <div id="report-details"></div>  
-        <div style="margin-top:20px; padding:20px; background:#fff4f4; border-radius:20px; border-left:8px solid var(--danger); text-align: left;">  
-            <b style="color:var(--danger); font-size:1.1rem;"><i class="fas fa-lightbulb"></i> คำแนะนำผู้เชี่ยวชาญ:</b>   
-            <p id="display-advice" style="margin:8px 0 0 0; line-height:1.6;"></p>  
-        </div>  
-        <div class="btn-group">  
-            <button class="btn-pdf" onclick="generateMentalHealthPDF()"><i class="fas fa-file-pdf"></i> บันทึก PDF (รองรับมือถือ)</button>  
-            <button style="background:#dfe6e9; color:#2d3436; padding:16px; border-radius:18px; border:none; cursor:pointer; font-weight:700;" onclick="location.reload()">เริ่มประเมินใหม่</button>  
-        </div>  
+<!-- FORM -->
+<form id="healthForm">
+  <div class="info-grid">
+    <div class="info-group">
+      <label for="pName">ชื่อ-นามสกุล:</label>
+      <input type="text" id="pName" placeholder="ระบุชื่อ-นามสกุล" required>
     </div>
-</div>  
+    <div class="info-group">
+      <label for="pAge">อายุ (ปี):</label>
+      <input type="number" id="pAge" placeholder="ระบุอายุ" required>
+    </div>
+    <div class="info-group">
+      <label for="pDate">วันที่ประเมิน:</label>
+      <input type="date" id="pDate" required>
+    </div>
+    <div class="info-group">
+      <label for="pHN">HN / เลขบัตรประชาชน:</label>
+      <input type="text" id="pHN" placeholder="ระบุ HN หรือ เลขบัตรประชาชน">
+    </div>
+  </div>
 
-<div id="print-area"></div>  
+  <!-- 2Q SECTION -->
+  <div class="section-title">
+    <i class="fa-solid fa-clipboard-check"></i> แบบคัดกรองโรคซึมเศร้า 2 คำถาม (2Q)
+  </div>
+  <div class="question-block">
+    <p>1. ใน 2 สัปดาห์ที่ผ่านมารวมวันนี้ ท่านรู้สึกหดหู่ เศร้า หรือท้อแท้สิ้นหวังหรือไม่?</p>
+    <div class="radio-group">
+      <label class="radio-label"><input type="radio" name="q2_1" value="0" required> ไม่มี</label>
+      <label class="radio-label"><input type="radio" name="q2_1" value="1"> มี</label>
+    </div>
+  </div>
+  <div class="question-block">
+    <p>2. ใน 2 สัปดาห์ที่ผ่านมารวมวันนี้ ท่านรู้สึกเบื่อ ทำอะไรก็ไม่เพลิดเพลินหรือไม่?</p>
+    <div class="radio-group">
+      <label class="radio-label"><input type="radio" name="q2_2" value="0" required> ไม่มี</label>
+      <label class="radio-label"><input type="radio" name="q2_2" value="1"> มี</label>
+    </div>
+  </div>
 
-<script>  
-    const q9Texts = ["เบื่อ ไม่สนใจทำอะไร", "ไม่สบายใจ ซึมเศร้า", "หลับยาก หรือ หลับมากไป", "เหนื่อยง่าย ไม่มีแรง", "เบื่ออาหาร หรือ กินมากเกินไป", "รู้สึกไม่ดีกับตัวเอง", "สมาธิไม่ดีตอนทำอะไร", "พูดช้าทำอะไรช้า หรือ กระสับกระส่าย", "คิดทำร้ายตนเอง"];  
-    const st5Texts = ["นอนไม่หลับ กระสับกระส่าย", "สมาธิน้อยลง", "หงุดหงิด/รำคาญใจ", "รู้สึกเบื่อ เซ็ง", "ไม่อยากพบปะผู้คน"];  
-    const q8Texts = [{t:"คิดอยากตาย/ตายไปจะดีกว่า", v:1}, {t:"อยากทำร้ายตัวเอง", v:2}, {t:"คิดเกี่ยวกับการฆ่าตัวตาย", v:6}, {t:"คุมความอยากฆ่าตัวตายไม่ได้", v:8}, {t:"มีแผนฆ่าตัวตายจริง", v:8}, {t:"ทำให้ตนเองบาดเจ็บ(ไม่หวังตาย)", v:4}, {t:"พยายามฆ่าตัวตาย(หวังให้ตาย)", v:10}, {t:"เคยพยายามฆ่าตัวตายในอดีต", v:4}];  
-  
-    let scores = { q2: 0, q9: -1, st5: -1, q8: -1 };  
-  
-    window.onload = () => {  
-        document.getElementById('q2-content').innerHTML = [1,2].map(i => `<div class="question-card"><p>${i}. ${i==1?'ช่วง 2 สัปดาห์นี้ หดหู่ เศร้า ท้อแท้?':'ช่วง 2 สัปดาห์นี้ เบื่อ ทำอะไรไม่เพลิดเพลิน?'}</p><div class="options"><div class="option-item opt-green"><input type="radio" name="2q${i}" id="2q${i}n" value="0"><label for="2q${i}n">ไม่มี</label></div><div class="option-item opt-red"><input type="radio" name="2q${i}" id="2q${i}y" value="1"><label for="2q${i}y">มี</label></div></div></div>`).join('');  
-        document.getElementById('q9-content').innerHTML = q9Texts.map((t, i) => `<div class="question-card"><p>${i+1}. ${t}</p><div class="options"><div class="option-item opt-green"><input type="radio" name="q9_${i}" id="q9_${i}_0" value="0"><label for="q9_${i}_0">ไม่เลย</label></div><div class="option-item opt-yellow"><input type="radio" name="q9_${i}" id="q9_${i}_1" value="1"><label for="q9_${i}_1">บางวัน</label></div><div class="option-item opt-orange"><input type="radio" name="q9_${i}" id="q9_${i}_2" value="2"><label for="q9_${i}_2">บ่อย</label></div><div class="option-item opt-red"><input type="radio" name="q9_${i}" id="q9_${i}_3" value="3"><label for="q9_${i}_3">ทุกวัน</label></div></div></div>`).join('');  
-        document.getElementById('st5-content').innerHTML = st5Texts.map((t, i) => `<div class="question-card"><p>${i+1}. ${t}</p><div class="options"><div class="option-item opt-green"><input type="radio" name="st5_${i}" id="st5_${i}_0" value="0"><label for="st5_${i}_0">แทบไม่มี</label></div><div class="option-item opt-yellow"><input type="radio" name="st5_${i}" id="st5_${i}_1" value="1"><label for="st5_${i}_1">บางครั้ง</label></div><div class="option-item opt-orange"><input type="radio" name="st5_${i}" id="st5_${i}_2" value="2"><label for="st5_${i}_2">บ่อยครั้ง</label></div><div class="option-item opt-red"><input type="radio" name="st5_${i}" id="st5_${i}_3" value="3"><label for="st5_${i}_3">ประจำ</label></div></div></div>`).join('');  
-        document.getElementById('q8-content').innerHTML = q8Texts.map((d, i) => `<div class="question-card"><p>${i+1}. ${d.t}</p><div class="options"><div class="option-item opt-green"><input type="radio" name="q8_${i}" id="q8_${i}n" value="0"><label for="q8_${i}n">ไม่มี</label></div><div class="option-item opt-red"><input type="radio" name="q8_${i}" id="q8_${i}y" value="${d.v}"><label for="q8_${i}y">มี</label></div></div></div>`).join('');  
-    };  
-  
-    function show(id) {  
-        document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));  
-        document.getElementById(id).classList.add('active');  
-        window.scrollTo({top: 0, behavior: 'smooth'});  
-    }  
-  
-    function nextFrom2Q() {  
-        const r1 = document.querySelector('input[name="2q1"]:checked');  
-        const r2 = document.querySelector('input[name="2q2"]:checked');  
-        if(!r1 || !r2) return alert("กรุณาเลือกคำตอบให้ครบถ้วนครับ");  
-        scores.q2 = parseInt(r1.value) + parseInt(r2.value);  
-        if(scores.q2 > 0) show('section-9q');   
-        else finishReport("ผลการคัดกรองปกติ สุขภาพจิตอยู่ในเกณฑ์ดีครับ แนะนำให้รักษาสุขภาพด้วยการพักผ่อนให้เพียงพอ หลีกเลี่ยงภาระงานที่หนักเกินไป และหาเวลาทำกิจกรรมนันทนาการร่วมกับครอบครัวสม่ำเสมอนะครับ");  
-    }  
-  
-    function nextFrom9Q() {  
-        scores.q9 = 0;  
-        for(let i=0; i<9; i++) {  
-            const r = document.querySelector(`input[name="q9_${i}"]:checked`);  
-            if(!r) return alert("กรุณาตอบคำถามให้ครบทุกข้อครับ");  
-            scores.q9 += parseInt(r.value);  
-        }  
-        if(scores.q9 >= 7) show('section-8q'); else show('section-st5');  
-    }  
-  
-    function finishST5() {  
-        scores.st5 = 0;  
-        for(let i=0; i<5; i++) {  
-            const r = document.querySelector(`input[name="st5_${i}"]:checked`);  
-            if(!r) return alert("กรุณาตอบคำถามให้ครบทุกข้อครับ");  
-            scores.st5 += parseInt(r.value);  
-        }  
-        finishReport();  
-    }  
-  
-    function finish8Q() {  
-        scores.q8 = 0;  
-        for(let i=0; i<8; i++) {  
-            const r = document.querySelector(`input[name="q8_${i}"]:checked`);  
-            if(!r) return alert("กรุณาตอบคำถามให้ครบทุกข้อครับ");  
-            scores.q8 += parseInt(r.value);  
-        }  
-        finishReport();  
-    }  
-  
-    function getStatusColor(label) {  
-        if (label.includes('ปกติ')) return '#00b894';  
-        if (label.includes('น้อย')) return '#fdcb6e';  
-        if (label.includes('ปานกลาง') || label.includes('เสี่ยง')) return '#e17055';  
-        if (label.includes('รุนแรง') || label.includes('มาก')) return '#d63031';  
-        return '#2d3436';  
-    }  
-  
-    function finishReport(manualMsg = null) {  
-        const name = document.getElementById('client-name').value || "ผู้รับบริการ";  
-        let tableHtml = `<table border="1" style="width:100%; border-collapse:collapse; margin:15px 0;"><tr><th style="padding:10px; background:#6c5ce7; color:white;">หัวข้อการประเมิน</th><th align="center" style="padding:10px; background:#6c5ce7; color:white;">คะแนน</th><th style="padding:10px; background:#6c5ce7; color:white;">แปลผล</th></tr>`;  
-          
-        let res2Q = scores.q2 > 0 ? '🚩 มีแนวโน้ม' : '✅ ปกติ';  
-        tableHtml += `<tr><td style="padding:10px;">1. การคัดกรองเบื้องต้น (2Q)</td><td align="center">${scores.q2}</td><td style="padding:10px; font-weight:700; color:${getStatusColor(res2Q)}">${res2Q}</td></tr>`;  
-          
-        let advice = manualMsg || "";  
+  <!-- 9Q SECTION -->
+  <div id="section9Q" style="display: none;">
+    <div class="section-title">
+      <i class="fa-solid fa-notes-medical"></i> แบบประเมินโรคซึมเศร้า 9 คำถาม (9Q)
+    </div>
+    <p style="font-size:14px; color:#666;">ใน 2 สัปดาห์ที่ผ่านมารวมวันนี้ ท่านมีอาการเหล่านี้บ่อยแค่ไหน?</p>
+    
+    <div class="question-block">
+      <p>1. เบื่อ ไม่สนใจทำอะไร</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q9_1" value="0"> ไม่มีเลย (0)</label>
+        <label class="radio-label"><input type="radio" name="q9_1" value="1"> 1-7 วัน (1)</label>
+        <label class="radio-label"><input type="radio" name="q9_1" value="2"> >7 วัน (2)</label>
+        <label class="radio-label"><input type="radio" name="q9_1" value="3"> ทุกวัน (3)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>2. ไม่สบายใจ หดหู่ ท้อแท้</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q9_2" value="0"> ไม่มีเลย (0)</label>
+        <label class="radio-label"><input type="radio" name="q9_2" value="1"> 1-7 วัน (1)</label>
+        <label class="radio-label"><input type="radio" name="q9_2" value="2"> >7 วัน (2)</label>
+        <label class="radio-label"><input type="radio" name="q9_2" value="3"> ทุกวัน (3)</label>
+      </div>
+    </div>
+    <!-- 9Q Questions 3-9 -->
+    <div class="question-block">
+      <p>3. หลับยาก หรือหลับๆ ตื่นๆ หรือหลับมากไป</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q9_3" value="0"> ไม่มีเลย (0)</label>
+        <label class="radio-label"><input type="radio" name="q9_3" value="1"> 1-7 วัน (1)</label>
+        <label class="radio-label"><input type="radio" name="q9_3" value="2"> >7 วัน (2)</label>
+        <label class="radio-label"><input type="radio" name="q9_3" value="3"> ทุกวัน (3)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>4. เหนื่อยง่าย หรือไม่ค่อยมีแรง</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q9_4" value="0"> ไม่มีเลย (0)</label>
+        <label class="radio-label"><input type="radio" name="q9_4" value="1"> 1-7 วัน (1)</label>
+        <label class="radio-label"><input type="radio" name="q9_4" value="2"> >7 วัน (2)</label>
+        <label class="radio-label"><input type="radio" name="q9_4" value="3"> ทุกวัน (3)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>5. เบื่ออาหาร หรือกินมากเกินไป</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q9_5" value="0"> ไม่มีเลย (0)</label>
+        <label class="radio-label"><input type="radio" name="q9_5" value="1"> 1-7 วัน (1)</label>
+        <label class="radio-label"><input type="radio" name="q9_5" value="2"> >7 วัน (2)</label>
+        <label class="radio-label"><input type="radio" name="q9_5" value="3"> ทุกวัน (3)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>6. รู้สึกไม่ดีกับตัวเอง คิดว่าตัวเองล้มเหลวหรือทำให้ครอบครัวผิดหวัง</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q9_6" value="0"> ไม่มีเลย (0)</label>
+        <label class="radio-label"><input type="radio" name="q9_6" value="1"> 1-7 วัน (1)</label>
+        <label class="radio-label"><input type="radio" name="q9_6" value="2"> >7 วัน (2)</label>
+        <label class="radio-label"><input type="radio" name="q9_6" value="3"> ทุกวัน (3)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>7. สมาธิไม่ดีเวลาทำอะไร เช่น ดูโทรทัศน์ ฟังวิทยุ หรือทำงานที่ต้องใช้ความตั้งใจ</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q9_7" value="0"> ไม่มีเลย (0)</label>
+        <label class="radio-label"><input type="radio" name="q9_7" value="1"> 1-7 วัน (1)</label>
+        <label class="radio-label"><input type="radio" name="q9_7" value="2"> >7 วัน (2)</label>
+        <label class="radio-label"><input type="radio" name="q9_7" value="3"> ทุกวัน (3)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>8. พูดหรือเคลื่อนไหวช้าจนคนอื่นสังเกตเห็นได้ หรือกระสับกระส่ายจนอยู่นิ่งไม่ได้</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q9_8" value="0"> ไม่มีเลย (0)</label>
+        <label class="radio-label"><input type="radio" name="q9_8" value="1"> 1-7 วัน (1)</label>
+        <label class="radio-label"><input type="radio" name="q9_8" value="2"> >7 วัน (2)</label>
+        <label class="radio-label"><input type="radio" name="q9_8" value="3"> ทุกวัน (3)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>9. คิดทำร้ายตนเอง หรือคิดว่าถ้าตายไปคงจะดี</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q9_9" value="0"> ไม่มีเลย (0)</label>
+        <label class="radio-label"><input type="radio" name="q9_9" value="1"> 1-7 วัน (1)</label>
+        <label class="radio-label"><input type="radio" name="q9_9" value="2"> >7 วัน (2)</label>
+        <label class="radio-label"><input type="radio" name="q9_9" value="3"> ทุกวัน (3)</label>
+      </div>
+    </div>
+  </div>
 
-        if(scores.q9 !== -1) {  
-            let lv9 = scores.q9 < 7 ? "ปกติ" : scores.q9 <= 12 ? "มีอาการซึมเศร้าระดับน้อย" : scores.q9 <= 18 ? "มีอาการซึมเศร้าระดับปานกลาง" : "มีอาการซึมเศร้าระดับรุนแรง";  
-            tableHtml += `<tr><td style="padding:10px;">2. ระดับภาวะซึมเศร้า (9Q)</td><td align="center">${scores.q9}</td><td style="padding:10px; font-weight:700; color:${getStatusColor(lv9)}">${lv9}</td></tr>`;  
-            
-            if(!advice) {
-                if(scores.q9 >= 13) {
-                    advice = "พบภาวะซึมเศร้าระดับปานกลางถึงรุนแรง อาจเกิดจากความเหนื่อยล้าสะสมหรือภาวะเครียดในชีวิตประจำวัน แนะนำให้ปรึกษาบุคลากรทางการแพทย์หรือเข้าพบเจ้าหน้าที่สาธารณสุข ณ โรงพยาบาลใกล้บ้าน เพื่อรับการดูแลและคำแนะนำที่เหมาะสมอย่างทันท่วงทีครับ";
-                } else {
-                    advice = "ช่วงนี้อาจมีความเครียดหรือความกังวลใจจากการทำงานหรือการดำเนินชีวิตประจำวัน แนะนำให้ผ่อนคลายความเหนื่อยล้า พูดคุยระบายความรู้สึกกับบุคคลที่ไว้วางใจ และสังเกตอาการตนเองเป็นระยะครับ";
-                }
-            }
-        }  
-          
-        if(scores.st5 !== -1) {  
-            let lvST = scores.st5 <= 4 ? "ปกติ" : scores.st5 <= 7 ? "ความเครียดระดับน้อย" : scores.st5 <= 9 ? "ความเครียดระดับปานกลาง" : "ความเครียดระดับมาก";  
-            tableHtml += `<tr><td style="padding:10px;">3. ระดับความเครียด (ST-5)</td><td align="center">${scores.st5}</td><td style="padding:10px; font-weight:700; color:${getStatusColor(lvST)}">${lvST}</td></tr>`;  
-            
-            if(!advice) {
-                if(scores.st5 >= 8) {
-                    advice = "ระดับความเครียดค่อนข้างสูง ซึ่งอาจส่งผลกระทบต่อการนอนหลับ สมาธิ และสุขภาพกายในระยะยาว แนะนำจัดสรรเวลาพักผ่อน ฝึกการผ่อนคลายกล้ามเนื้อ หรือปรึกษาเจ้าหน้าที่สาธารณสุขครับ";
-                } else {
-                    advice = "ระดับความเครียดอยู่ในเกณฑ์ที่สามารถบริหารจัดการได้ตามปกติ แนะนำให้ทำกิจกรรมผ่อนคลายที่ชื่นชอบ และหลีกเลี่ยงปัจจัยกระตุ้นความกังวลครับ";
-                }
-            }
-        }  
-  
-        if(scores.q8 !== -1) {  
-            let lv8 = scores.q8 === 0 ? "ปกติ" : scores.q8 <= 8 ? "ความเสี่ยงระดับน้อย" : scores.q8 <= 16 ? "ความเสี่ยงระดับปานกลาง" : "ความเสี่ยงระดับรุนแรง";  
-            tableHtml += `<tr><td style="padding:10px;">4. แนวโน้มความรุนแรง (8Q)</td><td align="center">${scores.q8}</td><td style="padding:10px; font-weight:700; color:${getStatusColor(lv8)}">${lv8}</td></tr>`;  
-            if(scores.q8 >= 1) advice = "พบสัญญาณความเสี่ยงที่ต้องเฝ้าระวังอย่างใกล้ชิด เพื่อความปลอดภัยและการดูแลสุขภาพจิตที่ถูกต้อง แนะนำให้ติดต่อสายด่วนสุขภาพจิต โทร. 1323 (โทรฟรีตลอด 24 ชั่วโมง) หรือเข้ารับคำปรึกษาจากทีมแพทย์และพยาบาลที่โรงพยาบาลใกล้บ้านโดยเร็วครับ";  
-        }  
-  
-        tableHtml += `</table>`;  
-          
-        document.getElementById('report-details').innerHTML = tableHtml;  
-        document.getElementById('display-advice').innerText = advice;  
-        document.getElementById('setup-ui').style.display = 'none';  
-        document.getElementById('section-result').style.display = 'block';  
-    }  
-  
-    function generateMentalHealthPDF() {  
-        const name = document.getElementById('client-name').value || "ผู้รับบริการ";  
-        const table = document.getElementById('report-details').innerHTML;  
-        const advice = document.getElementById('display-advice').innerText;  
-        const today = new Date();  
-        const thaiDate = `${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()+543}`;  
-  
-        const printContent = `  
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <meta charset="UTF-8">
-                <title>รายงานผลการประเมินสุขภาพจิต</title>
-                <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
-                <style>
-                    body { font-family: 'Sarabun', sans-serif; padding: 20px; color: #2d3436; line-height: 1.5; }
-                    .print-container { border: 3px solid #6c5ce7; border-radius: 25px; padding: 25px; background: #fff; box-sizing: border-box; }
-                    h1 { color: #6c5ce7; text-align: center; margin: 0 0 5px 0; font-size: 22px; }
-                    p { margin: 0; font-size: 14px; }
-                    table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-                    th { padding: 10px; background: #6c5ce7; color: white; text-align: left; }
-                    td { padding: 10px; border-bottom: 1px solid #f1f1f1; text-align: left; }
-                    .advice-box { background: #fdf2f2; padding: 15px; border-left: 6px solid #d63031; border-radius: 15px; margin-top: 15px; }
-                    .tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-                    .tip-item { background: #f8f9fa; padding: 10px; border-radius: 10px; border: 1px solid #eee; font-size: 12px; }
-                    .footer-sign { margin-top: 40px; text-align: right; font-size: 14px; }
-                    
-                    .no-print { text-align: center; margin-bottom: 20px; }
-                    .btn-action { background: #00b894; color: white; padding: 10px 20px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; margin: 5px; }
-                    @media print { .no-print { display: none !important; } }
-                </style>
-            </head>
-            <body>
-                <div class="no-print">
-                    <p style="color: #636e72; margin-bottom: 10px;">💡 หากหน้าต่างพิมพ์ไม่เปิดขึ้นมาอัตโนมัติ ให้กดปุ่มด้านล่างนี้ครับ</p>
-                    <button class="btn-action" onclick="window.print()">สั่งพิมพ์ / บันทึก PDF</button>
-                    <button class="btn-action" style="background:#636e72;" onclick="window.close()">ปิดหน้าต่างนี้</button>
-                </div>
-                <div class="print-container">  
-                    <h1>รายงานผลการประเมินสุขภาพจิตประชาชน</h1>  
-                    <p style="text-align:center; color: #555;">โรงพยาบาลดอนจาน จังหวัดกาฬสินธุ์</p>  
-                    <hr style="border:0; border-top: 2px solid #6c5ce7; margin: 15px 0;">  
-                    <p><b>ผู้รับบริการ:</b> ${name} &nbsp;&nbsp;&nbsp; <b>วันที่ประเมิน:</b> ${thaiDate}</p>  
-                    <h3 style="font-size: 16px; margin: 15px 0 5px 0;">📊 รายละเอียดผลการประเมิน</h3>  
-                    <div style="font-size: 14px;">${table}</div>  
-                    <div class="advice-box">  
-                        <h4 style="margin:0 0 5px 0; color:#d63031; font-size: 14px;">💡 คำแนะนำการดูแลสุขภาวะทางใจ</h4>  
-                        <p style="font-size: 13px;">${advice}</p>  
-                    </div>  
-                    <h4 style="margin-top:15px; margin-bottom: 8px; font-size: 14px;">✨ เคล็ดลับดูแลใจ วัยทำงานและผู้สูงอายุ (Happy & Healthy Life)</h4>  
-                    <div class="tips-grid">  
-                        <div class="tip-item"><b>[✓] วัยทำงาน (ยืดเหยียดผ่อนคลาย):</b> ปรับเปลี่ยนอิริยาบถทุก 1 ชั่วโมง และจัดสรรเวลาพักผ่อนเพื่อลดภาวะหมดไฟ</div>  
-                        <div class="tip-item"><b>[✓] ผู้สูงอายุ (สร้างสุขร่วมกัน):</b> ทำกิจกรรมสร้างสรรค์เบาๆ ร่วมกับครอบครัว และรับแสงแดดยามเช้าเพื่อส่งเสริมการนอนหลับ</div>  
-                    </div>  
-                    <div class="footer-sign">  
-                        <p>ผู้รายงาน: <b>พว.ปนัทธพล จิตนาเรียง</b></p>  
-                        <p style="font-size:12px; color:#666; margin: 0;">พยาบาลวิชาชีพชำนาญการ (สุขภาพจิตเด็กและวัยรุ่น)</p>  
-                    </div>  
-                </div>  
-                <script>
-                    window.onload = function() {
-                        setTimeout(function() { window.print(); }, 500);
-                    }
-                <\/script>
-            </body>
-            </html>
-        `;  
-  
-        const printWindow = window.open('', '_blank');
-        if (printWindow) {
-            printWindow.document.open();
-            printWindow.document.write(printContent);
-            printWindow.document.close();
-        } else {
-            const printArea = document.getElementById('print-area');  
-            printArea.innerHTML = printContent;  
-            window.print();
-        }
+  <!-- 8Q SECTION -->
+  <div id="section8Q" style="display: none;">
+    <div class="section-title" style="color:var(--danger-color); background:#ffe0e3;">
+      <i class="fa-solid fa-triangle-exclamation"></i> แบบประเมินการทำร้ายตนเอง 8 คำถาม (8Q)
+    </div>
+    <p style="font-size:14px; color:#666;">ใน 1 เดือนที่ผ่านมารวมวันนี้</p>
+    
+    <div class="question-block">
+      <p>1. คิดอยากตาย หรือคิดว่าตายไปจะดีกว่า</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q8_1" value="0"> ไม่มี (0)</label>
+        <label class="radio-label"><input type="radio" name="q8_1" value="1"> มี (1)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>2. อยากทำร้ายตนเอง หรือทำให้ตนเองบาดเจ็บ</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q8_2" value="0"> ไม่มี (0)</label>
+        <label class="radio-label"><input type="radio" name="q8_2" value="2"> มี (2)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>3. คิดเกี่ยวกับการฆ่าตัวตาย</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q8_3" value="0"> ไม่มี (0)</label>
+        <label class="radio-label"><input type="radio" name="q8_3" value="6"> มี (6)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>4. มีแผนการที่จะฆ่าตัวตาย</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q8_4" value="0"> ไม่มี (0)</label>
+        <label class="radio-label"><input type="radio" name="q8_4" value="8"> มี (8)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>5. ได้เตรียมการที่จะทำร้ายตนเองหรือฆ่าตัวตาย โดยตั้งใจว่าจะให้ตายจริงๆ</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q8_5" value="0"> ไม่มี (0)</label>
+        <label class="radio-label"><input type="radio" name="q8_5" value="9"> มี (9)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>6. ได้ทำให้ตนเองบาดเจ็บ แต่ไม่ได้ตั้งใจที่จะทำให้เสียชีวิต</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q8_6" value="0"> ไม่มี (0)</label>
+        <label class="radio-label"><input type="radio" name="q8_6" value="4"> มี (4)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>7. ได้พยายามฆ่าตัวตาย โดยหวังจะให้ตาย</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q8_7" value="0"> ไม่มี (0)</label>
+        <label class="radio-label"><input type="radio" name="q8_7" value="10"> มี (10)</label>
+      </div>
+    </div>
+    <div class="question-block">
+      <p>8. ตลอดชีวิตที่ผ่านมา ท่านเคยพยายามฆ่าตัวตายหรือไม่</p>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="q8_8" value="0"> ไม่เคย (0)</label>
+        <label class="radio-label"><input type="radio" name="q8_8" value="4"> เคย (4)</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-buttons">
+    <button type="button" id="btnCalculate" onclick="processAssessment()">
+      <i class="fa-solid fa-calculator"></i> ประมวลผลคะแนน
+    </button>
+    <button type="button" id="btnPrint" onclick="window.print()">
+      <i class="fa-solid fa-print"></i> พิมพ์รายงาน
+    </button>
+    <button type="button" id="btnReset" onclick="resetAll()">
+      <i class="fa-solid fa-rotate-right"></i> รีเซ็ต
+    </button>
+  </div>
+</form>
+
+<!-- RESULT SECTION -->
+<div id="resultSection">
+  <h2 style="color:var(--primary-dark); margin-top:0;">
+    <i class="fa-solid fa-square-poll-vertical"></i> สรุปผลการประเมินสุขภาพจิต
+  </h2>
+  <div id="resultContent"></div>
+</div>
+
+</div>
+
+<script>
+// INITIAL SETUP
+document.getElementById('pDate').value = new Date().toISOString().split('T')[0];
+
+// Dynamic Section Control based on 2Q
+const q2Radios = document.querySelectorAll('input[name="q2_1"], input[name="q2_2"]');
+q2Radios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    const q2_1 = document.querySelector('input[name="q2_1"]:checked')?.value || '0';
+    const q2_2 = document.querySelector('input[name="q2_2"]:checked')?.value || '0';
+    
+    if (q2_1 === '1' || q2_2 === '1') {
+      document.getElementById('section9Q').style.display = 'block';
+    } else {
+      document.getElementById('section9Q').style.display = 'none';
+      document.getElementById('section8Q').style.display = 'none';
     }
+  });
+});
 
-    /* PWA INSTALL & SERVICE WORKER HANDLERS */
-    let deferredPrompt = null;
-    const installBox = document.getElementById("installBox");
-    const directInstallBtn = document.getElementById("directInstallBtn");
-    const howInstallButton = document.getElementById("howInstallButton");
-    const shortcutModal = document.getElementById("shortcutModal");
-    const closeShortcutModal = document.getElementById("closeShortcutModal");
-    const shortcutOk = document.getElementById("shortcutOk");
-
-    function isStandalone(){
-      return (window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true);
+// Dynamic Section Control for 8Q based on 9Q or 9Q_9
+const q9Radios = document.querySelectorAll('#section9Q input[type="radio"]');
+q9Radios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    let sum9Q = 0;
+    for (let i = 1; i <= 9; i++) {
+      const val = parseInt(document.querySelector(`input[name="q9_${i}"]:checked`)?.value || '0');
+      sum9Q += val;
     }
+    const q9_9 = parseInt(document.querySelector('input[name="q9_9"]:checked')?.value || '0');
 
-    // 1. ลงทะเบียน Service Worker
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").then(registration => {
-          console.log("Service Worker Registered:", registration.scope);
-        }).catch(error => {
-          console.error("Service Worker Registration Failed:", error);
-        });
-      });
+    if (sum9Q >= 7 || q9_9 > 0) {
+      document.getElementById('section8Q').style.display = 'block';
+    } else {
+      document.getElementById('section8Q').style.display = 'none';
     }
+  });
+});
 
-    // 2. ดักจับ Event ก่อนแสดงปุ่มติดตั้ง
-    window.addEventListener("beforeinstallprompt", event => {
-      event.preventDefault();
-      deferredPrompt = event;
-      if (directInstallBtn) {
-        directInstallBtn.style.display = "inline-flex";
+function processAssessment() {
+  const name = document.getElementById('pName').value.trim();
+  if (!name) {
+    alert('กรุณากรอกชื่อ-นามสกุล ผู้รับบริการ');
+    return;
+  }
+
+  const q2_1 = parseInt(document.querySelector('input[name="q2_1"]:checked')?.value || '0');
+  const q2_2 = parseInt(document.querySelector('input[name="q2_2"]:checked')?.value || '0');
+  const is2QPositive = (q2_1 === 1 || q2_2 === 1);
+
+  let html = `<p><strong>ชื่อ-นามสกุล:</strong> ${name} | <strong>วันที่:</strong> ${document.getElementById('pDate').value}</p>`;
+  html += `<p><strong>การคัดกรอง 2Q:</strong> ${is2QPositive ? '<span style="color:red; font-weight:bold;">ให้ผลบวก (เสี่ยง)</span>' : '<span style="color:green; font-weight:bold;">ปกติ</span>'}</p>`;
+
+  if (is2QPositive) {
+    let sum9Q = 0;
+    for (let i = 1; i <= 9; i++) {
+      sum9Q += parseInt(document.querySelector(`input[name="q9_${i}"]:checked`)?.value || '0');
+    }
+    
+    let text9Q = '';
+    if (sum9Q < 7) text9Q = 'ไม่มีอาการซึมเศร้า หรือมีน้อยมาก';
+    else if (sum9Q <= 12) text9Q = 'มีอาการซึมเศร้า ระดับน้อย';
+    else if (sum9Q <= 18) text9Q = 'มีอาการซึมเศร้า ระดับปานกลาง';
+    else text9Q = 'มีอาการซึมเศร้า ระดับรุนแรง';
+
+    html += `<p><strong>ผลประเมิน 9Q:</strong> ${sum9Q} คะแนน - <strong style="color:var(--primary-dark);">${text9Q}</strong></p>`;
+
+    if (sum9Q >= 7 || parseInt(document.querySelector('input[name="q9_9"]:checked')?.value || '0') > 0) {
+      let sum8Q = 0;
+      for (let i = 1; i <= 8; i++) {
+        sum8Q += parseInt(document.querySelector(`input[name="q8_${i}"]:checked`)?.value || '0');
       }
-    });
 
-    // 3. กดปุ่มเพื่อแสดง Pop-up ติดตั้ง PWA
-    if (directInstallBtn) {
-      directInstallBtn.addEventListener("click", async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User response: ${outcome}`);
-        deferredPrompt = null;
-        directInstallBtn.style.display = "none";
-      });
+      let text8Q = '';
+      if (sum8Q === 0) text8Q = 'ไม่มีแนวโน้มฆ่าตัวตาย';
+      else if (sum8Q <= 8) text8Q = 'มีแนวโน้มฆ่าตัวตาย ระดับน้อย';
+      else if (sum8Q <= 16) text8Q = 'มีแนวโน้มฆ่าตัวตาย ระดับปานกลาง';
+      else text8Q = 'มีแนวโน้มฆ่าตัวตาย ระดับรุนแรง';
+
+      html += `<p><strong>ผลประเมิน 8Q:</strong> ${sum8Q} คะแนน - <strong style="color:red;">${text8Q}</strong></p>`;
     }
+  }
 
-    // 4. แสดงคู่มือกรณีเบราว์เซอร์ไม่รองรับปุ่มตรง
-    howInstallButton.addEventListener("click", () => {
-      shortcutModal.style.display = "block";
-      document.body.style.overflow = "hidden";
+  const resultSection = document.getElementById('resultSection');
+  document.getElementById('resultContent').innerHTML = html;
+  resultSection.style.display = 'block';
+  resultSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetAll() {
+  if (confirm('คุณต้องการรีเซ็ตข้อมูลทั้งหมดหรือไม่?')) {
+    document.getElementById('healthForm').reset();
+    document.getElementById('pDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('section9Q').style.display = 'none';
+    document.getElementById('section8Q').style.display = 'none';
+    document.getElementById('resultSection').style.display = 'none';
+  }
+}
+
+/* PWA INSTALL & SERVICE WORKER HANDLERS */
+let deferredPrompt = null;
+const installBox = document.getElementById("installBox");
+const directInstallBtn = document.getElementById("directInstallBtn");
+const howInstallButton = document.getElementById("howInstallButton");
+const shortcutModal = document.getElementById("shortcutModal");
+const closeShortcutModal = document.getElementById("closeShortcutModal");
+const shortcutOk = document.getElementById("shortcutOk");
+
+function isStandalone(){
+  return (window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true);
+}
+
+// 1. Register Service Worker
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").then(registration => {
+      console.log("Service Worker Registered Successfully:", registration.scope);
+    }).catch(error => {
+      console.error("Service Worker Registration Failed:", error);
     });
+  });
+}
 
-    function closeShortcut(){
-      shortcutModal.style.display = "none";
-      document.body.style.overflow = "";
-    }
+// 2. Intercept Install Prompt Event
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  deferredPrompt = event;
+  if (directInstallBtn) {
+    directInstallBtn.style.display = "inline-flex";
+  }
+});
 
-    closeShortcutModal.addEventListener("click", closeShortcut);
-    shortcutOk.addEventListener("click", closeShortcut);
-    document.querySelector(".shortcut-overlay").addEventListener("click", closeShortcut);
+// Install Button Event Listener
+if (directInstallBtn) {
+  directInstallBtn.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to install prompt: ${outcome}`);
+    deferredPrompt = null;
+    directInstallBtn.style.display = "none";
+  });
+}
 
-    document.addEventListener("keydown", event => {
-      if(event.key === "Escape" && shortcutModal.style.display === "block"){
-        closeShortcut();
-      }
-    });
+// Instruction Modal Event Listeners
+howInstallButton.addEventListener("click", () => {
+  shortcutModal.style.display = "block";
+  document.body.style.overflow = "hidden";
+});
 
-    window.addEventListener("appinstalled", () => {
-      deferredPrompt = null;
-      shortcutModal.style.display = "none";
-      installBox.style.display = "none";
-    });
+function closeShortcut(){
+  shortcutModal.style.display = "none";
+  document.body.style.overflow = "";
+}
 
-    if(isStandalone()){
-      installBox.style.display = "none";
-    }
-</script>  
-</body>  
+closeShortcutModal.addEventListener("click", closeShortcut);
+shortcutOk.addEventListener("click", closeShortcut);
+document.querySelector(".shortcut-overlay").addEventListener("click", closeShortcut);
+
+document.addEventListener("keydown", event => {
+  if(event.key === "Escape" && shortcutModal.style.display === "block"){
+    closeShortcut();
+  }
+});
+
+window.addEventListener("appinstalled", () => {
+  deferredPrompt = null;
+  shortcutModal.style.display = "none";
+  installBox.style.display = "none";
+});
+
+if(isStandalone()){
+  installBox.style.display = "none";
+}
+</script>
+
+</body>
 </html>
 
