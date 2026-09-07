@@ -1,6 +1,6 @@
-const CACHE_NAME = "mental-check-2q9q8q-v2";
+const CACHE_NAME = "mental-health-smart-v1";
 
-const FILES_TO_CACHE = [
+const FILES = [
   "./",
   "./index.html",
   "./manifest.json",
@@ -9,33 +9,63 @@ const FILES_TO_CACHE = [
   "./512.png"
 ];
 
+// ติดตั้งและบังคับใช้ทันที
 self.addEventListener("install", event => {
+
   self.skipWaiting();
+
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(FILES_TO_CACHE);
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(FILES))
   );
+
 });
 
+// ลบ Cache เวอร์ชันเก่า
 self.addEventListener("activate", event => {
+
   event.waitUntil(
+
     caches.keys().then(keys =>
+
       Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
-          }
-        })
+
+        keys
+          .filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+
       )
+
     ).then(() => self.clients.claim())
+
   );
+
 });
 
+// Network ก่อน ถ้าไม่มีอินเทอร์เน็ตใช้ Cache
 self.addEventListener("fetch", event => {
+
   event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
+
+    fetch(event.request)
+
+      .then(networkResponse => {
+
+        if (networkResponse && networkResponse.status === 200) {
+
+          const responseToCache = networkResponse.clone();
+
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
+
+        }
+
+        return networkResponse;
+
+      })
+
+      .catch(() => caches.match(event.request))
+
   );
+
 });
